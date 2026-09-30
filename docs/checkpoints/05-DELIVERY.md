@@ -1,5 +1,7 @@
 # Final Delivery Checkpoint
 
+Historical build 001 delivery. The current phone/copy finish and preserved Library versions are recorded in checkpoint 06 and CURRENT-REVIEW.md.
+
 The authorized bounded task is complete. All PRs remain open drafts: #6/#2 modes, #7/#3 actual construction and examples, #8/#4 classroom, #9/#5 integration and review packaging. No merge, auto-merge, main push, deployment dispatch, production setting or shared graphics index change occurred.
 
 ## Frozen Review Outputs

@@ -12,4 +12,6 @@ Use ThreeKindsOfLevers commit `d3d647fd204cebd9ac94d652fbada434a08d7a90` for the
 
 ## Private Reference Rules
 
+The phone/copy follow-up's runtime source is `c567ddf0612dd25501144809031e0c4daf929753` (PR #9 build 003). Only CSS and the requested visible headings changed; `src/examples.js` and `src/classroom/` remain byte-identical to the frozen asset source above. No additional reusable asset export or shared index update is required for this follow-up.
+
 Original classroom photos are design references only. Never commit them, use them as textures, or include identifiable photo crops in public evidence. Screenshots in the review package show only the reconstructed game. Real-object diagrams are explanatory configurations, not manufacturer CAD or physical-validation evidence.
