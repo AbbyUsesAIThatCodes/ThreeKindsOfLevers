@@ -1,4 +1,14 @@
-# Overnight Review Status
+# Project Status
+
+## Current Banner And Camera Review
+
+Issue #12 / draft PR #13 targets main `770a7502ee6bd7c6d66cc605a577f5d826e66dce`, including the owner's merged integration PR #11. This is the separately approved September 30 polish, on isolated branch `polish/banner-camera`.
+
+Implementation checkpoint `a677dc3`: three distinct banner groups, motion control moved out of the lower panel, and complete-apparatus fitting above the lesson. Free orbit/Room View remain user-controlled. No changes to learning rules, classroom geometry, examples, storage keys or workflows. All 13 logic checks and gameplay, learning/touch and classroom browser regressions pass. Expanded framing checks and the clean PR package are in progress; see checkpoint 07 and CURRENT-REVIEW.md. Earlier build attempts remain in the durable ledger.
+
+No merge, deployment or production change is authorized. Pages remains main/manual only and draft check jobs skip. Preserve the older checkout, snapshots and Library history.
+
+## Historical Overnight Review
 
 ## Recovered Baseline
 
