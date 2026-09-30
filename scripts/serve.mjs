@@ -1,7 +1,7 @@
 import http from "node:http";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-const root = path.resolve("dist");
+const root = path.resolve(process.env.REVIEW_ROOT || "dist");
 const types = {
   ".html": "text/html",
   ".js": "text/javascript",
@@ -35,6 +35,6 @@ http
       res.writeHead(404).end("Not found");
     }
   })
-  .listen(Number(process.env.PORT || 4173), "0.0.0.0", () =>
+  .listen(Number(process.env.PORT || 4173), "127.0.0.1", () =>
     console.log(`http://localhost:${process.env.PORT || 4173}/ThreeKindsOfLevers/`),
   );

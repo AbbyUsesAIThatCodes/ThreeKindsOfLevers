@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import { mkdir } from 'node:fs/promises';
 import assert from 'node:assert/strict';
-const port=Number(process.env.PORT||4178), origin=`http://127.0.0.1:${port}`,url=origin+'/ThreeKindsOfLevers/';
+const port=Number(process.env.PORT||43160), origin=`http://127.0.0.1:${port}`,url=origin+'/ThreeKindsOfLevers/';
 const server=spawn(process.execPath,['scripts/serve.mjs'],{stdio:'ignore',env:{...process.env,PORT:String(port)}});
 for(let i=0;i<60;i++){try{const r=await fetch(url);if(r.ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
 const args=['--no-sandbox'];if(process.env.BROWSER_SOFTWARE_GL==='1')args.push('--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader');
@@ -24,6 +24,10 @@ async function layout(){
 }
 try{
   await page.goto(url);await page.waitForFunction(()=>document.querySelector('#app').dataset.ready==='true');await page.evaluate(()=>document.fonts.ready);
+  assert.equal(await page.title(),'Three Kinds Of Levers');
+  assert.equal(await page.locator('#help').innerText(),'How To Play');
+  assert.equal(await page.locator('.class-summary .eyebrow').innerText(),'Look For The Middle');
+  assert.match(await page.locator('.brand').innerText(),/Three Kinds\s+Of Levers/);
   await layout();await page.screenshot({path:'artifacts/first-class.png'});
   for(const n of [1,2,3]){
     await page.locator(`[data-preset="${n}"]`).click();assert.equal(await cls(),n);
@@ -69,7 +73,7 @@ try{
     await page.screenshot({path:`artifacts/viewport-${width}x${height}.png`});
   }
   // Root hosting and repository-prefix hosting both use only bundled assets.
-  await page.goto(origin+'/');await page.waitForFunction(()=>document.querySelector('#app').dataset.ready==='true');assert.match(await page.title(),/Three Kinds of Levers/);
+  await page.goto(origin+'/');await page.waitForFunction(()=>document.querySelector('#app').dataset.ready==='true');assert.match(await page.title(),/Three Kinds Of Levers/);
   const fallback=await browser.newPage({viewport:{width:1024,height:768}});fallback.on('pageerror',e=>errors.push(e.message));
   await fallback.addInitScript(()=>{const get=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(kind,...rest){return kind.startsWith('webgl')?null:get.call(this,kind,...rest);};Object.defineProperty(window,'localStorage',{get(){throw Error('Storage unavailable');}});});
   await fallback.goto(url);await fallback.waitForFunction(()=>document.querySelector('#app').dataset.ready==='fallback');

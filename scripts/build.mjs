@@ -1,23 +1,10 @@
-import { build } from "esbuild";
-import { rm, mkdir, cp, copyFile } from "node:fs/promises";
-await rm("dist", { recursive: true, force: true });
-await mkdir("dist/assets", { recursive: true });
-await cp("public", "dist", { recursive: true });
-await copyFile(
-  "node_modules/@fontsource/comic-neue/files/comic-neue-latin-400-normal.woff2",
-  "dist/assets/comic-neue-regular.woff2",
-);
-await copyFile(
-  "node_modules/@fontsource/comic-neue/files/comic-neue-latin-700-normal.woff2",
-  "dist/assets/comic-neue-bold.woff2",
-);
-await build({
-  entryPoints: {app: "src/app.js"},
-  bundle: true,
-  format: "esm",
-  target: ["chrome100", "firefox100", "safari16"],
-  outdir: "dist/assets",
-  minify: true,
-  legalComments: "eof",
-});
-console.log("Built self-contained static site in dist/");
+import {beginBuild,finishBuild,attachIdentity} from './build-identity.mjs';
+import {compileSite} from './compile-site.mjs';
+const ciScope=process.env.CI?`local-ci-${process.env.GITHUB_RUN_ID||'unknown'}-${process.env.GITHUB_RUN_ATTEMPT||'1'}`:undefined;
+const context=await beginBuild({scope:process.env.BUILD_SCOPE||ciScope||'local-jess-pc',target:process.env.BUILD_TARGET||'web-review'});
+const {manifest}=context;
+try{
+  await compileSite(process.cwd(),'dist',process.cwd());
+  await attachIdentity('dist',manifest);await finishBuild(context.ledgerRoot,context.reservation,{status:'success',fullId:manifest.fullId,sourceRevision:manifest.sourceRevision});
+  console.log(`BUILD SUCCESS ${manifest.fullId}`);
+}catch(error){await finishBuild(context.ledgerRoot,context.reservation,{status:'failed',fullId:manifest.fullId,error:error.message});console.error(`BUILD FAILED ${manifest.fullId}`);throw error;}

@@ -1,5 +1,6 @@
 import { LeverScene } from './scene.js';
 import { setupLearning } from './learning-ui.js';
+import { setupVocabulary } from './vocabulary.js';
 import { ROLES, PRESETS, LESSONS, order, leverClass, move, step, mirror, measures, valid } from './model.js';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const cap=s=>s[0].toUpperCase()+s.slice(1), storageKey='three-kinds-of-levers-v1';
@@ -7,7 +8,8 @@ const colors={effort:'#176b61',fulcrum:'#714896',load:'#89500b'};
 let state={...PRESETS[1]}, selected='effort', lifted=false, scene=null, ready=false, fallback=false;
 let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches, lastClass=null, latestPositions=null;
 try{const saved=JSON.parse(localStorage.getItem(storageKey));if(valid(saved?.state))state={...saved.state};reduced=reduced||saved?.reduced===true;}catch{}
-function save(){try{localStorage.setItem(storageKey,JSON.stringify({state,reduced}));}catch{}}
+let savedPlayState={...state};
+function save(){if(!$('#app').dataset.mode||$('#app').dataset.mode==='play')savedPlayState={...state};try{localStorage.setItem(storageKey,JSON.stringify({state:savedPlayState,reduced}));}catch{}}
 function notice(message){$('#toast').textContent=message;$('#toast').classList.add('show');clearTimeout(notice.timer);notice.timer=setTimeout(()=>$('#toast').classList.remove('show'),3500);}
 function select(role){selected=role;if(ready)scene.select(role);renderSelection();}
 function renderSelection(){
@@ -16,10 +18,10 @@ function renderSelection(){
   $('#position').value=(state[selected]+250)/25;
   $('#position').setAttribute('aria-valuetext',`${cap(selected)} at position ${(state[selected]+250)/25+1} of 21`);
   const sign=ready?scene.screenSign():1;
-  $('#move-left').disabled=step(state,selected,-sign)[selected]===state[selected];
-  $('#move-right').disabled=step(state,selected,sign)[selected]===state[selected];
+  $('#move-left').disabled=$('#app').dataset.arrangementLocked==='true'||step(state,selected,-sign)[selected]===state[selected];
+  $('#move-right').disabled=$('#app').dataset.arrangementLocked==='true'||step(state,selected,sign)[selected]===state[selected];
 }
-function setState(next){state={...next};lifted=false;if(ready)scene.setState(state);render();save();}
+function setState(next){if($('#app').dataset.arrangementLocked==='true')return;state={...next};lifted=false;if(ready)scene.setState(state);render();save();document.dispatchEvent(new Event('arrangement-change'));}
 function setLifted(value){lifted=value;if(ready)scene.setLifted(value);renderMotion();if(fallback)drawFallback();}
 function renderMotion(){
   const direction=measures(state).effortDirection===1?'up':'down';
@@ -87,6 +89,7 @@ for(const [id,d] of [['move-left',-1],['move-right',1]])$(`#${id}`).addEventList
 function showPositions(value){$('#position-panel').hidden=!value;$('#arrange').setAttribute('aria-expanded',String(value));}
 $('#arrange').addEventListener('click',()=>showPositions($('#position-panel').hidden));$('#close-positions').addEventListener('click',()=>{showPositions(false);$('#arrange').focus();});
 $('#side').addEventListener('click',()=>scene?.sideCamera());$('#fit').addEventListener('click',()=>scene?.resetCamera());$('#orbit').addEventListener('click',()=>scene?.turn());
+$('#room-view').addEventListener('click',()=>scene?.roomCamera());
 $('#help').addEventListener('click',()=>{$('#help-dialog').showModal();});for(const b of $$('.dialog-close'))b.addEventListener('click',()=>$('#help-dialog').close());
 $('#reduced').checked=reduced;$('#reduced').addEventListener('change',e=>{reduced=e.target.checked;if(scene){scene.reduced=reduced;scene.dirty=true;}save();});
 $('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{notice('Full screen is unavailable in this browser.');}});if(!document.fullscreenEnabled)$('#fullscreen').hidden=true;
@@ -94,4 +97,5 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#position-panel
 const layoutObserver=new ResizeObserver(()=>{if(latestPositions&&ready)onFrame({positions:scene.screenPositions()});});layoutObserver.observe($('#top'));layoutObserver.observe($('#lesson'));
 render();
 setupLearning({getState:()=>state,setState,setLifted,showPositions});
+setupVocabulary();
 try{scene=new LeverScene($('#scene'),{onChange:setState,onSelect:p=>{selected=p;renderSelection();},onFrame,onNotice:notice,onUnavailable:unavailable,onDrag:()=>setLifted(false)});await scene.init();ready=true;scene.reduced=reduced;scene.setState(state);scene.select(selected);$('#app').dataset.ready='true';}catch(error){console.warn('3D unavailable; using diagram.',error.message);unavailable();}

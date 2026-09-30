@@ -1,28 +1,18 @@
 # Three Kinds of Levers
 
-A classroom exploration of first-, second-, and third-class levers, using the shared 3D Lever Workshop environment.
+Explore, construct and classify levers in a cartoon version of the classroom.
 
-## Explore
+- **Play:** freely move Effort, Fulcrum and Load, try each class, mirror the arrangement and apply effort.
+- **Learn:** follow 14 guided activities, construct each class and locate roles in six pictured real-world configurations.
+- **Quiz:** classify all six role orderings, build each class, locate roles in the examples and check motion/model limits. First attempts and corrected retries stay separate.
 
-- Choose a first-, second-, or third-class lever.
-- Read the **Effort**, **Fulcrum**, and **Load** labels, attached by guide lines.
-- Apply effort to lift the load. The effort moves downward for first class and
-  upward for second/third class. The gold arrow always shows the load's downward
-  gravitational force, not its direction of travel.
-- Drag any part or its label along the beam, including past the other parts.
-  The middle role determines the class automatically.
-- Use **Move parts** for keyboard-accessible position controls and **Reverse
-  arrangement** to see that a mirrored lever keeps the same class.
-- Orbit, zoom, use Side view, or return to Fit view in the familiar classroom.
+Drag hardware or its label, use label arrow keys, or open **Move Parts**. Orbit, zoom, **Side View**, **Fit View** and **Room View** keep the 3D canvas full-window. Bold vocabulary opens a reference without hover panels intercepting clicks. Comic Sans uses the licensed Comic Neue fallback where needed.
 
-This version is independent of both [Lever Workshop](https://github.com/AbbyUsesAIThatCodes/LeverWorkshop)
-and [Mechanical Advantage](https://github.com/AbbyUsesAIThatCodes/MechanicalAdvantage).
-It preserves the latest classroom environment and full-window canvas. Opening
-panels and changing text never resize the 3D viewport.
+## Play a Review Build
 
-## Run locally
+See [Current Review](docs/CURRENT-REVIEW.md) for the exact integrated package and separate PR snapshots. Extract the whole package and double-click **Start Review.cmd** on Jess_PC, or run `node serve-review.mjs` with Node.js 22+. Open `http://127.0.0.1:43163/`. No dependency installation, hosting account or external runtime requests are needed for a packaged build. Stop that server before opening another snapshot, or set a different `PORT`.
 
-Node.js 22 or later:
+## Build Locally
 
 ```sh
 npm ci
@@ -30,41 +20,27 @@ npm run build
 npm run dev
 ```
 
-Open <http://localhost:4173/ThreeKindsOfLevers/> or <http://localhost:4173/>.
-Serve `dist/` over HTTP; do not open the HTML through `file://`.
+Open `http://127.0.0.1:4173/`. Serve `dist/` over HTTP; opening HTML directly does not work. Every compile reserves a new identity; reopening an existing package preserves it. Read [Build Identity](docs/BUILD_IDENTITY.md) before creating a PR-scoped artifact.
 
 ```sh
 npm test
-npx playwright install chromium
-npm run test:browser
+node tests/browser.mjs
+node tests/learning-browser.mjs
+node tests/classroom-browser.mjs
 ```
 
-`BROWSER_SOFTWARE_GL=1` enables software WebGL for headless Linux.
-`CHROMIUM_EXECUTABLE` can point to an existing Chromium. `PORT` changes the
-local server port (default 4173).
+`CHROMIUM_EXECUTABLE` may select an existing Edge/Chromium. `BROWSER_SOFTWARE_GL=1` enables software WebGL for headless checks. Local QA uses task-owned browser processes and ports 43160–43162. `REVIEW_ROOT` selects an already-built package's `site` directory.
 
-## Model and classroom scope
+## Curriculum and Model Scope
 
-This is an ideal **motion demonstration**, not a quantitative force simulator.
-It treats the beam and attachments as massless and the axle as frictionless.
-Apply effort animates a controlled 12-degree lift. The force directions and
-movement relationships are correct; force magnitudes and acceleration are not
-calculated. Read [the teacher notes](docs/TEACHER-NOTES.md) for assumptions,
-examples, and verification.
+The [coverage matrix](docs/CURRICULUM-COVERAGE.md) preserves the approved EES 2.2.1 R01 sources, local audit IDs and missing evidence. Digital construction rehearses arrangement design; it does not certify physical assembly or full-course mastery.
 
-The classroom and renderer were adapted from MechanicalAdvantage commit
-`f316c49745a394e0dd100ff4e8d01c0ae4431286`. The three-class apparatus uses
-procedural geometry, without the unused VEX CAD downloads. See
-[third-party notices](THIRD_PARTY_NOTICES.md).
+This is a **controlled 12-degree motion demonstration** with a massless beam/attachments and frictionless axle. Motion is not measured force or acceleration. The gold arrow shows downward gravitational force even while the load rises. See [Teacher Notes](docs/TEACHER-NOTES.md).
 
-JavaScript, fonts, and all visuals are served locally. No accounts, tracking,
-external runtime requests, or student data. The arrangement is stored in this
-browser under its own key. If WebGL or storage is unavailable, the labeled
-diagram and controls still work.
+The room reuses ClassroomVirtualization source with privately inspected photo references. It contains four separate pale desk tops in two pairs, a visible exit push bar and a recognizable extinguisher. The requested bar is a readable teaching detail, not measured photo-exact hardware. Apparatus scale conversion does not alter lever logic. See [Asset Manifest](docs/ASSET-MANIFEST.md), [Classroom Reference](docs/CLASSROOM-REFERENCE.md) and [Third-Party Notices](THIRD_PARTY_NOTICES.md).
 
-## Review and publishing
+No accounts or tracking. Play arrangement storage retains the existing key; lesson and quiz progress stays in the page session. Labeled diagram controls remain available if WebGL or storage fails.
 
-The implementation is delivered in a pull request before merging or publishing.
-After review, merging to `main` runs the included **Deploy Pages** workflow.
-Configure the repository's **Settings → Pages → Source** to **GitHub Actions**
-before the first deployment. No deployment is claimed by this README.
+## Review and Publishing
+
+The overnight stack stays draft and isolated from production. No task branch deploys Pages. The unchanged Pages workflow runs on `main` pushes or manual dispatch; the owner will test and decide what to merge. Do not dispatch a deployment or change Pages settings as part of this review.
