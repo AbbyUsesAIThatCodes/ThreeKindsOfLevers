@@ -127,6 +127,17 @@
       "fullId": "0.1.0_Unassigned_pr-13_build-003_20260930T131941Z_g47e0dee54d3a_dirty-abe101c4_web-review",
       "sourceRevision": "47e0dee54d3a7c735d5a411e2ef070bfa1e75717",
       "completedAtUtc": "2026-09-30T13:19:41.865Z"
+    },
+    {
+      "key": "pr-13/4",
+      "scope": "pr-13",
+      "ordinal": 4,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T13:20:30.725Z",
+      "fullId": "0.1.0_Unassigned_pr-13_build-004_20260930T132030Z_g5ad7c9c473cd_web-review",
+      "sourceRevision": "5ad7c9c473cd7963bac69edd5f0063666e6bcf03",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-13_build-004_20260930T132030Z_g5ad7c9c473cd_web-review",
+      "completedAtUtc": "2026-09-30T13:20:30.886Z"
     }
   ]
 }
