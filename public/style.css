@@ -13,6 +13,14 @@ dialog{border:1px solid #98aa8d;border-radius:23px;padding:28px 32px;max-width:6
 @media(max-height:600px) and (min-width:601px){header{padding:6px 16px}.brand small,.brand>span{display:none}.brand b{display:inline}.class-choices button{padding:5px 12px;font-size:16px}.class-choices button>span{width:28px;height:28px;font-size:20px}.class-choices small{font-size:12px}.view-tools{margin-top:5px}.view-tools p{display:none}#lesson{padding:10px 15px;bottom:8px;grid-template-columns:1.15fr 1fr}#lesson .eyebrow,#lesson .model-note{display:none}#lesson h1{font-size:22px}#lesson p{font-size:14px}#order{margin-top:6px;font-size:12px}.part-tag{font-size:16px;padding:4px 9px;min-width:112px}.part-tag small{font-size:11px}.try-motion #motion-note{min-height:0}#fallback{padding-top:120px;padding-bottom:135px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 /* The canvas stays full-window; learning uses a scrollable floating panel. */
+.example-graphic{display:block;width:min(100%,450px);height:auto;max-height:190px;margin:0 auto;background:#fffaf0;border-radius:12px}
+.lesson-picker{display:flex;align-items:center;gap:10px;font-size:12px;margin-bottom:8px}.lesson-picker select{font-size:12px;flex:1}
+#build-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}#build-form label{font-size:14px;font-weight:bold}
+#build-feedback[data-correct=true],#quiz-feedback[data-correct=true]{color:#17633b;border-left:5px solid #27834c;padding-left:8px}#build-feedback[data-correct=false],#quiz-feedback[data-correct=false]{color:#9e302d;border-left:5px solid #b6413c;padding-left:8px}
+#app[data-mode=quiz][data-activity-kind=example] #tags,#app[data-mode=quiz][data-activity-kind=example] #leaders{visibility:hidden}
+.vocab{font-size:inherit;border:0;border-bottom:1px dotted currentColor;border-radius:0;padding:1px 2px;background:transparent;font-weight:bold;color:inherit}
+#vocabulary-tooltip{position:fixed;z-index:50;background:#163b39;color:#fffcef;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.35;box-shadow:0 4px 20px #0003;pointer-events:none}
+.reference-source{font-size:13px;color:#566b60}
 .mode-choices{display:flex;justify-content:center;gap:6px;margin:0 12px 8px}.mode-choices button{min-width:76px;padding:6px 14px}
 #app:not([data-mode=play]) .class-choices,#app:not([data-mode=play]) #reset-play{display:none}
 #app[data-mode=quiz] .class-summary,#app[data-mode=quiz] .example{display:none}
