@@ -10,9 +10,9 @@ export const PRESETS = Object.freeze({
   3: Object.freeze({ effort: 0, fulcrum: -225, load: 225 }),
 });
 export const LESSONS = Object.freeze({
-  1: { name: 'First class', middle: 'fulcrum', example: 'Seesaw', explanation: 'The fulcrum is between the effort and the load.', connection: 'The seat you push down is the effort point. The center support is the fulcrum; the rider on the other end is the load.' },
-  2: { name: 'Second class', middle: 'load', example: 'Wheelbarrow', explanation: 'The load is between the fulcrum and the effort.', connection: 'The wheel axle is the fulcrum. The contents are the load; your hands lift the handles at the effort point.' },
-  3: { name: 'Third class', middle: 'effort', example: 'Tweezers', explanation: 'The effort is between the fulcrum and the load.', connection: 'On each arm, the joined end is the fulcrum. Your fingers apply effort between that end and the tip holding the load.' },
+  1: { name: 'First Class', middle: 'fulcrum', example: 'Seesaw', explanation: 'The fulcrum is between the effort and the load.', connection: 'The seat you push down is the effort point. The center support is the fulcrum; the rider on the other end is the load.' },
+  2: { name: 'Second Class', middle: 'load', example: 'Wheelbarrow', explanation: 'The load is between the fulcrum and the effort.', connection: 'The wheel axle is the fulcrum. The contents are the load; your hands lift the handles at the effort point.' },
+  3: { name: 'Third Class', middle: 'effort', example: 'Tweezers', explanation: 'The effort is between the fulcrum and the load.', connection: 'On each arm, the joined end is the fulcrum. Your fingers apply effort between that end and the tip holding the load.' },
 });
 export function order(state) { return [...ROLES].sort((a,b) => state[a] - state[b]); }
 export function leverClass(state) { return { fulcrum: 1, load: 2, effort: 3 }[order(state)[1]]; }

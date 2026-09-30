@@ -1,4 +1,5 @@
 import { LeverScene } from './scene.js';
+import { setupLearning } from './learning-ui.js';
 import { ROLES, PRESETS, LESSONS, order, leverClass, move, step, mirror, measures, valid } from './model.js';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const cap=s=>s[0].toUpperCase()+s.slice(1), storageKey='three-kinds-of-levers-v1';
@@ -22,7 +23,7 @@ function setState(next){state={...next};lifted=false;if(ready)scene.setState(sta
 function setLifted(value){lifted=value;if(ready)scene.setLifted(value);renderMotion();if(fallback)drawFallback();}
 function renderMotion(){
   const direction=measures(state).effortDirection===1?'up':'down';
-  $('#apply').textContent=lifted?'Return to level':'Apply effort · lift the load';$('#apply').setAttribute('aria-pressed',String(lifted));
+  $('#apply').textContent=lifted?'Return to Level':'Apply Effort · Lift the Load';$('#apply').setAttribute('aria-pressed',String(lifted));
   $('#motion-note').innerHTML=`Effort moves <b>${direction}</b>.<br>Load moves <b>up</b>.`;
   $('[data-tag="effort"] small').textContent=direction==='up'?'↑ Pull up here':'↓ Push down here';
   $('#app').dataset.lifted=String(lifted);
@@ -35,7 +36,7 @@ function render(){
   $('#order').innerHTML=order(state).map(p=>`<span class="order-part ${p} ${p===lesson.middle?'middle':''}">${cap(p)}</span>`).join('<span class="order-line" aria-hidden="true"></span>');
   $('#order').setAttribute('aria-label',`Along the beam: ${order(state).map(cap).join(', ')}. ${cap(lesson.middle)} is in the middle.`);
   $('#app').dataset.class=cls;
-  if(lastClass!==cls){$('#announcement').textContent=`${lesson.name}. ${lesson.explanation}`;lastClass=cls;}
+  if(lastClass!==cls){if($('#app').dataset.mode!=='quiz')$('#announcement').textContent=`${lesson.name}. ${lesson.explanation}`;lastClass=cls;}
   renderSelection();renderMotion();if(fallback)drawFallback();
 }
 for(const role of ROLES){
@@ -75,7 +76,7 @@ function drawFallback(){
 }
 function unavailable(){
   ready=false;fallback=true;if(scene)scene.active=false;$('#scene').hidden=true;$('#tags').hidden=true;$('#leaders').hidden=true;$('#fallback').hidden=false;
-  $$('.camera-controls button').forEach(b=>b.disabled=true);$('#fallback > p').hidden=true;$('.view-tools > p').textContent='Diagram view · use Move parts to explore.';$('#position-panel').hidden=false;$('#arrange').setAttribute('aria-expanded','true');
+  $$('.camera-controls button').forEach(b=>b.disabled=true);$('#fallback > p').hidden=true;$('.view-tools > p').textContent='Diagram view · use Move Parts to explore.';$('#position-panel').hidden=false;$('#arrange').setAttribute('aria-expanded','true');
   $('#app').dataset.ready='fallback';drawFallback();
 }
 for(const b of $$('[data-preset]'))b.addEventListener('click',()=>setState(PRESETS[b.dataset.preset]));
@@ -92,4 +93,5 @@ $('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenEl
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#position-panel').hidden)showPositions(false);});
 const layoutObserver=new ResizeObserver(()=>{if(latestPositions&&ready)onFrame({positions:scene.screenPositions()});});layoutObserver.observe($('#top'));layoutObserver.observe($('#lesson'));
 render();
+setupLearning({getState:()=>state,setState,setLifted,showPositions});
 try{scene=new LeverScene($('#scene'),{onChange:setState,onSelect:p=>{selected=p;renderSelection();},onFrame,onNotice:notice,onUnavailable:unavailable,onDrag:()=>setLifted(false)});await scene.init();ready=true;scene.reduced=reduced;scene.setState(state);scene.select(selected);$('#app').dataset.ready='true';}catch(error){console.warn('3D unavailable; using diagram.',error.message);unavailable();}
