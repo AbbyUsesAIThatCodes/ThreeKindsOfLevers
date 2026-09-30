@@ -22,6 +22,7 @@ async function checkFrame(label){
   assert.equal(data.scroll,data.width,`${label}: no horizontal overflow`);
   const b=data.bounds;
   assert.ok(b.left>=10&&b.right<=data.width-10,`${label}: complete beam clears screen edges ${JSON.stringify(b)}`);
+  if(data.width===320)assert.ok(b.right-b.left>=160,`${label}: narrow-screen apparatus remains large enough to use`);
   assert.ok(b.top>=data.top.bottom+8&&b.bottom<=data.lesson.top-8,`${label}: complete base and beam clear banner and lesson ${JSON.stringify(data)}`);
   for(const t of data.tags){assert.ok(t.top>=data.top.bottom&&t.bottom<=b.top+1,`${label}: labels remain above the apparatus`);}
   for(const r of data.buttons){assert.ok(r.left>=0&&r.right<=data.width&&r.top>=0&&r.bottom<=data.top.bottom,`${label}: ${r.id} stays in banner`);}

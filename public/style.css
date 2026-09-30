@@ -89,3 +89,13 @@ header{padding:9px 24px;max-width:1340px;margin:auto}.brand b{display:inline}.br
   .try-motion .view-tools p{display:block;font-size:12px}.try-motion #motion-note{font-size:12px}
   #app:not([data-mode=play]) .banner-controls{max-width:740px}
 }
+@media(max-width:360px){
+  .banner-controls #apply{font-size:11px;white-space:nowrap}
+  /* The selected class rule is also in the lesson. Keep the other preset hints
+     available to assistive technology without spending a second toolbar row. */
+  .banner-controls .class-choices small{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .banner-controls .class-choices button{padding:6px 2px}
+  .banner-controls .camera-controls button{font-size:11px;padding:4px 2px}
+  .try-motion .view-tools{display:block}.try-motion .view-tools p{font-size:11px}
+  .try-motion #motion-note{display:block;font-size:11px;margin:2px 0 0}
+}
