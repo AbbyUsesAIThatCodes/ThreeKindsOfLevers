@@ -80,7 +80,7 @@ export class LeverScene extends WorkshopScene {
       arrow.line.material.transparent=true;arrow.line.material.opacity=.9;
       arrow.cone.material.transparent=true;arrow.cone.material.opacity=.85;group.add(arrow);
     }
-    this.highlight(this.hovered);this.dirty=true;this.draw();
+    this.highlight(this.hovered);this.dirty=true;this.reframe();this.draw();
   }
   highlight(part) {
     this.hovered=part;
@@ -105,35 +105,65 @@ export class LeverScene extends WorkshopScene {
   }
   draw() {
     if(!this.moving)return;
-    // Keep the apparatus above the scrollable activity on a short phone screen.
-    // Projection offset changes framing only; canvas dimensions and mechanics stay fixed.
-    const w=this.host.clientWidth,h=this.host.clientHeight;
-    if(w<=600&&h<=650&&document.querySelector('#app')?.dataset.mode!=='play')this.camera.setViewOffset(w,h,0,60,w,h);
-    else if(this.camera.view?.enabled)this.camera.clearViewOffset();
     this.scene.fog.near=260;this.scene.fog.far=850;
     // Hide only walls lying between an outside orbiting camera and the activity.
     if(this.room){const p=this.room.root.worldToLocal(this.camera.position.clone());this.room.groups.LeftWall.visible=p.x>-3.45;this.room.groups.RightWall.visible=p.x<3.45;this.room.groups.BackWall.visible=p.z<6.9;this.room.groups.FrontWall.visible=p.z>-6.9;}
     this.moving.rotation.z=this.motion.angle;
     for(const group of [...Object.values(this.attachments||{}),...Object.values(this.arrows||{})])group.rotation.z=-this.motion.angle;
     this.scene.updateMatrixWorld(true);this.renderer.render(this.scene,this.camera);this.dirty=false;
+    // Actual mesh bounds let review checks catch a hidden base or beam, not only labels.
+    this.host.dataset.apparatusBounds=JSON.stringify(this.projectBounds(new THREE.Box3().setFromObject(this.base).union(new THREE.Box3().setFromObject(this.moving))));
     this.callbacks.onFrame?.({positions:this.screenPositions(),angle:this.motion.angle});
   }
-  resetCamera() {
-    this.camera.fov=35;this.camera.updateProjectionMatrix();
-    const short=this.host.clientHeight<=500,center=short?7:8;
-    const fit=Math.max(1,1.45/(this.host.clientWidth/this.host.clientHeight))*(short?1.3:1);
-    this.controls.target.set(0,center,0);this.camera.position.set(10*fit,center+14*fit,47*fit);
-    this.controls.maxDistance=Math.max(75,60*fit);this.controls.update();this.draw();
+  projectBounds(box) {
+    const points=[];
+    for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(this.project(new THREE.Vector3(x,y,z)));
+    return {left:Math.min(...points.map(p=>p.x)),right:Math.max(...points.map(p=>p.x)),top:Math.min(...points.map(p=>p.y)),bottom:Math.max(...points.map(p=>p.y))};
+  }
+  reframe() {
+    if(!this.cameraPreset||!this.state||this.drag)return;
+    const w=this.host.clientWidth,h=this.host.clientHeight;
+    const tags=[...document.querySelectorAll('.part-tag')];
+    const top=(document.querySelector('#top')?.getBoundingClientRect().bottom||0)+Math.max(0,...tags.map(t=>t.offsetHeight))+18;
+    const bottom=(document.querySelector('#lesson')?.getBoundingClientRect().top||h)-12;
+    const usableHeight=Math.max(1,bottom-top),usableWidth=w-36;
+    // Reserve the full controlled lift as well as the level beam, so Apply Effort
+    // never moves the apparatus under a panel. This changes only camera framing.
+    const angle=this.moving.rotation.z,box=new THREE.Box3().setFromObject(this.base);
+    const hanging=[...Object.values(this.attachments),...Object.values(this.arrows)];
+    for(const a of [0,measures(this.state).liftAngle]){
+      this.moving.rotation.z=a;for(const group of hanging)group.rotation.z=-a;
+      this.moving.updateMatrixWorld(true);box.union(new THREE.Box3().setFromObject(this.moving));
+    }
+    this.moving.rotation.z=angle;for(const group of hanging)group.rotation.z=-angle;
+    const center=box.getCenter(new THREE.Vector3()),direction=new THREE.Vector3(...(this.cameraPreset==='side'?[0,.04,1]:[8,9,38])).normalize();
+    const damping=this.controls.enableDamping;this.controls.enableDamping=false;this.controls.update();
+    this.camera.clearViewOffset();this.camera.fov=35;this.camera.updateProjectionMatrix();this.controls.target.copy(center);
+    let distance=50,bounds;
+    for(let i=0;i<7;i++){
+      this.camera.position.copy(center).addScaledVector(direction,distance);this.camera.lookAt(center);this.camera.updateMatrixWorld(true);
+      bounds=this.projectBounds(box);
+      const ratio=Math.max((bounds.right-bounds.left)/usableWidth,(bounds.bottom-bounds.top)/usableHeight);
+      if(Math.abs(ratio-1)<.001)break;
+      distance=Math.max(19,distance*ratio);
+    }
+    this.controls.maxDistance=Math.max(90,distance*2);this.controls.update();this.controls.enableDamping=damping;
+    bounds=this.projectBounds(box);
+    this.camera.setViewOffset(w,h,(bounds.left+bounds.right-w)/2,(bounds.top+bounds.bottom)/2-(top+bottom)/2,w,h);
+    this.draw();
+  }
+  resetCamera(){this.cameraPreset='fit';this.reframe();}
+  sideCamera(){this.cameraPreset='side';this.reframe();}
+  resize(reset=false){
+    super.resize(reset);
+    if(this.cameraPreset)this.reframe();
+    else if(this.camera.view?.enabled){const v=this.camera.view;this.camera.setViewOffset(this.host.clientWidth,this.host.clientHeight,v.offsetX*this.host.clientWidth/v.fullWidth,v.offsetY*this.host.clientHeight/v.fullHeight,this.host.clientWidth,this.host.clientHeight);this.draw();}
   }
   roomCamera() {
+    this.cameraPreset=null;this.camera.clearViewOffset();
     this.camera.fov=50;this.camera.updateProjectionMatrix();this.camera.position.set(-22,67,252);this.controls.target.set(-22,3,-28);this.controls.maxDistance=450;this.controls.update();this.draw();
   }
-  sideCamera() {
-    this.camera.fov=35;this.camera.updateProjectionMatrix();
-    const short=this.host.clientHeight<=500,center=short?7:8;
-    const fit=Math.max(1,1.45/(this.host.clientWidth/this.host.clientHeight))*(short?1.3:1);
-    this.controls.target.set(0,center,0);this.camera.position.set(0,center+.1,49*fit);this.controls.update();this.draw();
-  }
+  turn(){this.cameraPreset=null;super.turn();}
   screenSign() {return this.project(new THREE.Vector3(10,HEIGHT,0)).x>=this.project(new THREE.Vector3(-10,HEIGHT,0)).x?1:-1;}
   beginDrag(event,part) {
     if(document.querySelector('#app')?.dataset.arrangementLocked==='true')return false;
@@ -148,6 +178,7 @@ export class LeverScene extends WorkshopScene {
     this.callbacks.onDrag?.();return true;
   }
   installPointers() {
+    this.controls.addEventListener('start',()=>{this.cameraPreset=null;});
     this.canvas.addEventListener('pointerdown',e=>{const p=this.hit(e);if(p)this.beginDrag(e,p);},true);
     this.canvas.addEventListener('pointermove',e=>{if(!this.drag){const p=this.hit(e);if(p!==this.hovered)this.highlight(p);this.canvas.style.cursor=p?'grab':'default';}});
     this.canvas.addEventListener('pointerleave',()=>{if(!this.drag)this.highlight(null);});

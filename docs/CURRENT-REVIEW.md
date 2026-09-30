@@ -1,66 +1,41 @@
-# Three Kinds of Levers - Overnight Review
+# Banner And Camera Review
 
-Start with **Start Review.cmd** in the extracted top-level folder. This is the integrated PR #9 build. On another system with Node.js 22+, run `node serve-review.mjs`, then open `http://127.0.0.1:43163/`. Keep the server running; Ctrl+C stops it. Do not open site/index.html directly. No npm install, account, external runtime downloads or hosting subscription is needed.
+Draft [PR #13](https://github.com/AbbyUsesAIThatCodes/ThreeKindsOfLevers/pull/13), [issue #12](https://github.com/AbbyUsesAIThatCodes/ThreeKindsOfLevers/issues/12), targets main after merged integration PR #11. The owner will merge manually after testing. No production action was taken.
 
-## Exact Review Stack
+## Exact Playable Build
 
-| Draft PR | Issue | Clean Game Source | Bundle Launcher |
-| --- | --- | --- | --- |
-| [#6](https://github.com/AbbyUsesAIThatCodes/ThreeKindsOfLevers/pull/6) | #2 | `b6eb88dd4ecbf26f5d4be18993b5bec1e166e417` | Play PR 6.cmd |
-| [#7](https://github.com/AbbyUsesAIThatCodes/ThreeKindsOfLevers/pull/7) | #3 | `5def06afa49cf355f635e82454c0f9e97fdb2c5e` | Play PR 7.cmd |
-| [#8](https://github.com/AbbyUsesAIThatCodes/ThreeKindsOfLevers/pull/8) | #4 | `80fcf28ec099a788cf29d335084594212c45cb34` | Play PR 8.cmd |
-| [#9](https://github.com/AbbyUsesAIThatCodes/ThreeKindsOfLevers/pull/9) | #5 | `c567ddf0612dd25501144809031e0c4daf929753` | Start Review.cmd |
+`0.1.0_Unassigned_pr-13_build-005_20260930T132654Z_g9daf2a8bbde5_web-review`
 
-All four independently compiled snapshots are included. Stop one launcher before opening another, or set PORT to another unused port. Earlier snapshots are historical review steps: #6 has initial modes; #7 adds construction/examples; #8 adds the room. They retain the feedback, fixed-motion and focus findings resolved in #9. Use #9 for the complete assessment.
+Clean runtime source: `9daf2a8bbde5c4d838988e7bd160763c12602089`. Built UTC: `2026-09-30T13:26:54.601Z`. Runtime input SHA256: `c7adc0e71748a6630d55b01388bb77d14b502eb809d02a6289f6f994a74e86fa`. Version remains 0.1.0 development; Unassigned preserves the documented absence of an accepted codename.
 
-- PR #6: `0.1.0_Unassigned_pr-6_build-001_20260930T032140Z_gb6eb88dd4ecb_web-review`
-- PR #7: `0.1.0_Unassigned_pr-7_build-001_20260930T032141Z_g5def06afa49c_web-review`
-- PR #8: `0.1.0_Unassigned_pr-8_build-001_20260930T032143Z_g80fcf28ec099_web-review`
-- PR #9: `0.1.0_Unassigned_pr-9_build-003_20260930T035321Z_gc567ddf0612d_web-review`
+The ZIP is named `0.1.0_Unassigned_pr-13_build-005_20260930T132654Z_g9daf2a8bbde5_web-review.zip`. Unzip the entire folder, double-click **Start Review.cmd**, or use Node.js 22+: `node serve-review.mjs`. Open `http://127.0.0.1:43163/`; Ctrl+C stops the server. No npm install, account, hosting service or external runtime download is needed. Do not open site/index.html directly. The Library download and screenshots are delivered privately in the conversation; no private links are published on GitHub.
 
-The source snapshots are clean. A separately identified review packager supplies the identity overlay, report and server to older PRs. Integrated packager revision is `c567ddf0612dd25501144809031e0c4daf929753`; earlier package manifests retain their original packager revisions and ledger-only dirty flags. No uncommitted runtime/packager edits are included. Every manifest records byte fingerprints, fixed UTC time, full source revision and target. Checkout line endings can make byte fingerprints differ between clean worktrees. No accepted codename existed in recovered history: Unassigned is an explicit placeholder, not a new release name. Version 0.1.0 remains development and preserves Play storage compatibility.
+Manifest, report, persistent game footer, launcher console and enclosing folder share the exact identity above. The existing packager is separately identified as `2d56d8185148d09eaad1d92d1e06e56b44090755`; its dirty flag records only the durable shared build ledger. No uncommitted runtime or packaging-code changes are included. Later commits update ledger/report metadata only, so they do not require rebuilding this output.
 
-The build ledger is committed at `a04a9c9f9f20f52597d7eaab491557b9dc46c622`. Later handoff commits change reports/ledger only; the delivered game source remains the exact revision above. Copying, testing and downloading these outputs does not reserve a new build.
+## Scope
 
-## What Changed
+Three distinct groups share the top banner: learning modes with Reset and Apply Effort; lever class presets; camera views. The lower information panel is shorter. Fit/Side View frame the complete beam and base through the controlled lift in the space between the banner and lesson, from a slightly lower viewing angle. Manual orbit, zoom and Room View remain free until Fit/Side is selected again.
 
-Play preserves free rearrangement, camera and motion controls. Learn has 14 guided activities, including actual construction of each class and six pictured operating configurations. Quiz has 17 checks: all six role orders, three constructions, six real-world role/class checks, motion and a model-limit question. Class answers are hidden during the quiz. First-attempt results and corrected retries remain separate. Changing an answer invalidates visible correctness. The fixed third-class motion question prevents arrangement edits while retaining Apply Effort. Keyboard progression focuses an announced activity heading and preserves lesson-picker focus.
+At the narrowest portrait and short landscape sizes, redundant preset subtitles remain accessible to assistive technology while the selected class rule remains visible below. Short landscape learning uses the existing scrollable activity panel. No classroom, apparatus dimensions, learning/quiz rules, examples, storage or workflow changes. Class presets remain concealed in Learn/Quiz, preserving assessment. Comic Sans and its licensed fallback remain in use. Motion remains a controlled 12-degree demonstration, not measured force or acceleration; [curriculum coverage](CURRICULUM-COVERAGE.md) is unchanged.
 
-The room reuses ClassroomVirtualization source and privately inspected original photos. Four individual pale desk tops form two pairs. The exit has a projecting bar with two mounts; the red extinguisher has a white sleeve, curved hose and silver neck/lever. The requested exit-bar detail is not claimed as measured photo-exact hardware. Private photos and identifying markings are absent from this bundle.
+## Verified Against This Package
 
-## Curriculum Coverage
+- All 13 logic tests pass.
+- All 96 complete-apparatus bounds checks pass: three classes, level/lifted, Fit/Side, resets and learning modes across 320 x 568, 844 x 390, 1366 x 768, 1024 x 768, 768 x 1024 and 390 x 844. The complete beam/base clear the banner and lesson; controls and labels stay in bounds. Repeated mode/class/view/reset interactions and nested vocabulary references pass.
+- Gameplay: real 3D raycast/label dragging, keyboard crossing, cancellation, mirror, lift directions, persistence, reduced motion and WebGL/storage fallback pass.
+- Learning: all guided/quiz activities, actual construction, correct/incorrect responses, immutable first attempts, stale-feedback prevention, locked motion question and keyboard focus progression pass.
+- Phone touch emulation: drag/cancel, narrow subtitle bounds, swipe to class/middle-role controls, select both, submit and return to the question top pass. Panel swipes do not move the lever.
+- Classroom/Room View and example regressions pass; frozen shared assets remain unchanged.
+- Package launcher, clean source, console/UI/manifest/report identity and mode navigation pass. No unhandled page errors or external runtime requests.
 
-See [the full matrix](CURRICULUM-COVERAGE.md). EES 2.2.1 R01 Gxx IDs are local audit targets, not official standards. Centered coverage: G01 roles, G23 inferred function-based identification, G54 middle-role classification, G60/G61 representations. Digital building rehearses G21/G26/G27; it cannot certify E2 or physical assembly mastery. G58 supports the pictured forearm transfer. G52 distinguishes motion from gravity, and G64/G68 bound the model. Missing teacher-spoken directions and incomplete S/M captures remain documented. Tutorials are source-informed teaching design. The original approved curricular-goals document is unchanged.
+Evidence and machine-readable bounds are in the ZIP's `evidence/` folder. Edge/Chromium 154.0.4258.37 ran headlessly with software WebGL. Tests used task-owned ports 43210, 43213, 43161, 43162 and 43166; only spawned browsers/servers were closed. Windows launcher contents were inspected; the actual Node launcher was exercised without opening a user browser. Physical devices, Safari/Firefox and screen-reader software were not tested.
 
-## Verified Tests
+## Production And Recovery
 
-- 13 logic tests passed, including all six orders, mirrored/invariant classification, legal spacing, actual construction checks, correct/incorrect role answers, retry evidence, motion/model limits, desk pairs and concurrent durable build allocation.
-- Existing 3D browser regression passed: actual hardware raycast/label dragging, keyboard crossing, cancellation, mirroring, lift direction, camera, storage, reduced motion, responsive canvas and WebGL/storage fallback.
-- Expanded learning browser passed: all 17 quiz items, three student-built classes, wrong/right answers, correct-to-wrong response changes, Learn feedback invalidation, immutable initial scores, locked motion edits with Apply Effort, keyboard Next/Previous and picker focus, resets, mode restoration, touch drag/cancel and vocabulary references.
-- Layouts checked at 1366x900, 390x844, 844x390 and 320x568, plus the original desktop cases. Short-screen role labels and apparatus clear the activity panel. The activity scrolls where needed.
-- Classroom browser passed and screenshots were visually inspected for four desks/two pairs, front bar, recognizable extinguisher and operating diagrams.
-- All four included Node launchers served their exact package. The Windows .cmd wrappers were inspected; they were not launched into the user's desktop. UI, launcher console, manifest, report, source and folder identities agree; mode navigation passed; no unhandled page errors or external runtime requests were observed.
+At 2026-09-30T13:28:59.5341535Z, main remained `770a7502ee6bd7c6d66cc605a577f5d826e66dce`, Pages run `36713581831` remained unchanged, and live HTML SHA256 remained `b163e5748eb290ca316636ffb5ba11c40f4fe9d337c5c48b66bf071d4ad9298e`. Draft Actions job: skipped. No merge, auto-merge, workflow dispatch, deployment, billing/settings change or new hosting.
 
-Browser: Microsoft Edge/Chromium 154.0.4258.37, headless software WebGL on Jess_PC. Tests used task-owned processes and ports 43160–43162 and 43166–43169; only those spawned processes were closed. Evidence screenshots/logs are in the downloaded package's evidence folder, and every screenshot contains the exact build footer. No physical touch-device or Safari/Firefox run was performed. No screen-reader software test or physical classroom validation is claimed. Build 003 includes the three requested display-heading corrections and three phone-flow screenshots showing the controls, submitted answer and returned question top. Build 001 and the earlier Library versions remain preserved. Build 002 remains a local candidate, superseded by the requested display-copy correction before Library delivery.
+Branch: `polish/banner-camera`; primary checkout and older packages are preserved. Build 005 reservation is durable at `6045be6cf7ae0e3c43486bd07e324767164088ee`. Earlier candidates remain in the ledger/evidence archive: 001 exposed inherited vocabulary sizing; 002 led to the short-phone fix; 004 led to the landscape fix. Reuse build 005 for review; do not relabel or rebuild merely to change a report.
 
-## Morning Test
+The earlier PR #9 report is retained in [Overnight Review](reviews/PR9-OVERNIGHT-REVIEW.md). Shared asset source remains `d3d647fd204cebd9ac94d652fbada434a08d7a90`; no reusable graphics or shared index update is required.
 
-1. Open the integrated launcher, then Room View: check the desk seams, extinguisher and door bar. Return to Fit View.
-2. In Play, try all classes, drag a role across another, reverse the arrangement and apply effort.
-3. In Learn, choose each Build lesson and construct the requested class. Change the middle-role answer after checking; feedback must clear.
-4. In Quiz, try a wrong answer and correct it. After a correct answer, change a dropdown: green correctness must clear. Use Tab/Enter for progression.
-5. Reach the motion question: positions stay fixed; Apply Effort raises the load and effort location. Finish the model-limit item and compare first-attempt versus corrected results.
-
-## Production and Merge Recovery
-
-Verified 2026-09-30T03:56:00.3962732Z: main remains `b017384dbcd433ab34e8c432e2a5d4a94846e6e2`. Latest successful Pages run remains [36020594915](https://github.com/AbbyUsesAIThatCodes/ThreeKindsOfLevers/actions/runs/36020594915), updated 2026-09-24T15:31:20Z. Live index.html SHA256 before and after: `2E86A82D20D68B8121909C418F08518A73770C902EEA1B3C1ADCAC8F63583552`. The Pages workflow file is unchanged. All four PRs are open drafts with no auto-merge. No main push, merge, deployment dispatch, settings change or hosted preview was performed. Drafts skipped the costly Actions test job; builds and evidence are local.
-
-The owner controls merging after review. Exact order: **#6 -> #7 -> #8 -> #9**. For a straightforward stack integration, merge #6 into main, then retarget #7 to main and merge, then #8, then #9. Keep task branches until the stack is complete. Use merge commits to preserve ancestry; if choosing squash/rebase, inspect the next retargeted diff carefully. Do not merge a later PR into an old task branch by accident. Each main merge can trigger the existing Pages workflow; nothing here performs that action.
-
-Restart on Jess_PC from STATUS.md and docs/checkpoints/04-INTEGRATION.md. The isolated source checkout and detached snapshots remain saved. Preserve clean snapshot revisions and consumed ledger entries. Reuse these frozen packages for retesting; a code change needs a newly reserved build ordinal. Reports added after compilation do not alter the frozen site assets.
-
-## Known Boundaries and Asset Handoff
-
-This remains a controlled 12-degree ideal motion demonstration, not measured force, acceleration or physical assembly evidence. Room dimensions and camera framing are estimates. At 320 x 568, narrow subtitles wrap inside their cards. Touch swipes through the overflow Quiz panel were verified: reveal controls, select class and middle role, submit, see correct feedback, and swipe back to the top without moving the page or lever. Tiny screens use a scrollable activity. CI runs without a coordinated PR allocator are explicitly local-scoped; no persistent/distributed counter service was installed. No accepted codename has been invented.
-
-[Asset Manifest](ASSET-MANIFEST.md): reusable candidates are the six code-native diagrams in src/examples.js and the Desk_Pair_*, ExitPushBar and FireExtinguisher groups in src/classroom/. Current runtime revision (CSS phone fix only; shared assets unchanged from d3d647fd204cebd9ac94d652fbada434a08d7a90): `c567ddf0612dd25501144809031e0c4daf929753`. Third-party attribution is retained. EdugamesGraphicsStorage indexes were not changed; the coordinating parent owns that separate update.
+ZIP SHA256: `5b6364fb05b48fda30fbcd10a9e39fdf7459bdaaa0ed0e5712ee7e133340cc17` (9,742,253 bytes). Library confirmed the ZIP and three selected screenshots as new items. The ZIP contains 44 screenshots and byte-identical copies of all 11 tested site files.

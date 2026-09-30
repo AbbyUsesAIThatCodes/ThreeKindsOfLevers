@@ -25,8 +25,9 @@ function setState(next){if($('#app').dataset.arrangementLocked==='true')return;s
 function setLifted(value){lifted=value;if(ready)scene.setLifted(value);renderMotion();if(fallback)drawFallback();}
 function renderMotion(){
   const direction=measures(state).effortDirection===1?'up':'down';
-  $('#apply').textContent=lifted?'Return to Level':'Apply Effort · Lift the Load';$('#apply').setAttribute('aria-pressed',String(lifted));
-  $('#motion-note').innerHTML=`Effort moves <b>${direction}</b>.<br>Load moves <b>up</b>.`;
+  $('#apply').textContent=lifted?'Return To Level':'Apply Effort';$('#apply').setAttribute('aria-pressed',String(lifted));
+  $('#apply').setAttribute('aria-label',lifted?'Return To Level':'Apply Effort · Lift The Load');
+  $('#motion-note').innerHTML=`Effort moves <b>${direction}</b>. <br>Load moves <b>up</b>.`;
   $('[data-tag="effort"] small').textContent=direction==='up'?'↑ Pull up here':'↓ Push down here';
   $('#app').dataset.lifted=String(lifted);
 }
@@ -94,7 +95,7 @@ $('#help').addEventListener('click',()=>{$('#help-dialog').showModal();});for(co
 $('#reduced').checked=reduced;$('#reduced').addEventListener('change',e=>{reduced=e.target.checked;if(scene){scene.reduced=reduced;scene.dirty=true;}save();});
 $('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{notice('Full screen is unavailable in this browser.');}});if(!document.fullscreenEnabled)$('#fullscreen').hidden=true;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#position-panel').hidden)showPositions(false);});
-const layoutObserver=new ResizeObserver(()=>{if(latestPositions&&ready)onFrame({positions:scene.screenPositions()});});layoutObserver.observe($('#top'));layoutObserver.observe($('#lesson'));
+const layoutObserver=new ResizeObserver(()=>{if(ready){scene.reframe();if(latestPositions)onFrame({positions:scene.screenPositions()});}});layoutObserver.observe($('#top'));layoutObserver.observe($('#lesson'));
 render();
 setupLearning({getState:()=>state,setState,setLifted,showPositions});
 setupVocabulary();

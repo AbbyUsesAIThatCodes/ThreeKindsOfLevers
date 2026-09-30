@@ -1,4 +1,12 @@
-# Overnight Review Status
+# Project Status
+
+## Current Banner And Camera Review
+
+**Complete implementation and QA:** issue #12 / draft PR #13, isolated branch `polish/banner-camera`, against main `770a7502ee6bd7c6d66cc605a577f5d826e66dce`. The exact clean review is `0.1.0_Unassigned_pr-13_build-005_20260930T132654Z_g9daf2a8bbde5_web-review`, runtime `9daf2a8bbde5c4d838988e7bd160763c12602089`; reservation saved at `6045be6`. Later handoff commits affect reports only.
+
+All 13 logic tests, 96 complete-apparatus bounds checks, gameplay, learning/touch, classroom and package-identity suites pass. See CURRENT-REVIEW.md and checkpoint 07. Final ZIP and three selected screenshots are delivered privately through Library; the owner will merge manually. No production changes, merge, auto-merge or workflow dispatch. Existing review history, shared assets and the previous checkout remain preserved.
+
+## Historical Overnight Review
 
 ## Recovered Baseline
 
