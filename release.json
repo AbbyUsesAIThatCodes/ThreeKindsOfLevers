@@ -1,0 +1,8 @@
+{
+  "version": "0.1.0",
+  "status": "development",
+  "codename": null,
+  "codenameSlug": "Unassigned",
+  "codenameNote": "No accepted release codename exists in the recovered repository history. Unassigned is an explicit placeholder, not a new codename.",
+  "compatibility": "Preserves the three-kinds-of-levers-v1 Play storage key and model units. No release or next milestone is accepted by these draft PRs."
+}

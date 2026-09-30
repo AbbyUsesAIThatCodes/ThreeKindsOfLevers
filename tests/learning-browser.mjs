@@ -14,8 +14,22 @@ try {
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(origin);await page.waitForFunction(()=>document.querySelector('#app').dataset.ready==='true');
   await page.locator('[data-preset="2"]').click();
-  await page.locator('[data-mode-choice="learn"]').click();
+  await page.locator('[data-mode-choice="learn"]').focus();await page.keyboard.press('Enter');
   assert.match(await page.locator('#activity').innerText(),/Find the Three Roles/);
+  assert.equal(await page.evaluate(()=>document.activeElement.tagName),'H2');
+  await page.keyboard.press('Tab');await page.keyboard.press('Tab');await page.keyboard.press('Enter');
+  assert.match(await page.locator('#activity h2').innerText(),/Meet a First Class/);
+  assert.equal(await page.evaluate(()=>document.activeElement.tagName),'H2');
+  await page.keyboard.press('Shift+Tab');await page.keyboard.press('ArrowDown');
+  assert.equal(await page.evaluate(()=>document.activeElement.id),'guide-picker');
+  await page.locator('#guide-picker').selectOption('4');
+  await page.locator('[data-tag="fulcrum"]').focus();
+  for(let n=0;n<20&&await page.locator('#app').getAttribute('data-class')!=='1';n++)await page.keyboard.press('ArrowRight');
+  await page.locator('#build-form select').selectOption('fulcrum');await page.locator('#build-form button').click();
+  assert.equal(await page.locator('#build-feedback').getAttribute('data-correct'),'true');
+  await page.locator('#build-form select').selectOption('effort');
+  assert.equal(await page.locator('#build-feedback').getAttribute('data-correct'),null);
+  await page.locator('#build-form button').click();assert.equal(await page.locator('#build-feedback').getAttribute('data-correct'),'false');
   await page.locator('#guide-picker').selectOption(String(GUIDES.length-1));
   assert.match(await page.locator('#activity').innerText(),/12-degree/);
   await page.locator('[data-mode-choice="play"]').click();
@@ -26,6 +40,13 @@ try {
   assert.equal(await page.locator('#announcement').innerText(),'');
   for(let i=0;i<QUIZ.length;i++){
     const q=QUIZ[i];
+    if(q.id==='motion'){
+      assert.equal(await page.locator('#arrange').isDisabled(),true);
+      await page.locator('canvas').focus();for(let n=0;n<15;n++)await page.keyboard.press('ArrowRight');
+      await page.locator('#position').evaluate(el=>{el.value='13';el.dispatchEvent(new Event('input',{bubbles:true}));});
+      assert.equal(await page.locator('#app').getAttribute('data-class'),'3');
+      await page.locator('#apply').click();assert.match(await page.locator('#motion-note').innerText(),/Effort moves up/);
+    }
     if(q.kind==='choice')await page.locator('select[name="choice"]').selectOption(String(q.answer));
     else if(q.kind==='build'){
       const role={1:'fulcrum',2:'load',3:'effort'}[q.target];
@@ -46,7 +67,17 @@ try {
     await page.locator('#quiz-form button').click();
     if(i===0){assert.match(await page.locator('#quiz-feedback').innerText(),/Not yet/);await page.locator('select[name="class"]').selectOption('1');await page.locator('#quiz-form button').click();}
     assert.match(await page.locator('#quiz-feedback').innerText(),/^Correct/);
-    await page.locator('#next-question').click();
+    if(i===1){
+      await page.locator('select[name="class"]').selectOption('2');
+      assert.match(await page.locator('#quiz-feedback').innerText(),/^Response changed/);
+      assert.equal(await page.locator('#quiz-feedback').getAttribute('data-correct'),null);
+      assert.equal(await page.locator('#quiz-form button').isEnabled(),true);
+      await page.locator('#quiz-form button').click();assert.match(await page.locator('#quiz-feedback').innerText(),/^Not yet/);
+      await page.locator('select[name="class"]').selectOption('1');await page.locator('#quiz-form button').click();
+      assert.match(await page.locator('#quiz-feedback').innerText(),/^Correct/);
+    }
+    await page.locator('#next-question').focus();await page.keyboard.press('Enter');
+    assert.equal(await page.evaluate(()=>document.activeElement.tagName),'H2','question navigation restores heading focus');
   }
   assert.ok((await page.locator('#activity').innerText()).includes(`${QUIZ.length-1} / ${QUIZ.length} correct on the first attempt`));
   assert.match(await page.locator('#activity').innerText(),/1 corrected/);
@@ -57,7 +88,7 @@ try {
   await page.locator('[data-term="effort"]').click();await page.locator('#reference-dialog [data-term="fulcrum"]').click();
   assert.equal(await page.locator('#reference-dialog h2').innerText(),'Fulcrum');await page.locator('#close-reference').click();
   await mkdir('artifacts',{recursive:true});
-  for(const [width,height] of [[1366,900],[390,844],[844,390]]){
+  for(const [width,height] of [[1366,900],[390,844],[844,390],[320,568]]){
     await page.setViewportSize({width,height});
     for(const mode of ['play','learn','quiz']){
       await page.locator(`[data-mode-choice="${mode}"]`).click();
@@ -66,5 +97,20 @@ try {
       await page.screenshot({path:`artifacts/${mode}-${width}x${height}.png`});
     }
   }
+  const touch=await browser.newPage({viewport:{width:390,height:844},hasTouch:true,isMobile:true});touch.on('pageerror',e=>errors.push(e.message));
+  await touch.goto(origin);await touch.waitForFunction(()=>document.querySelector('#app').dataset.ready==='true');
+  await touch.locator('#side').tap();const tag=await touch.locator('[data-tag="effort"]').boundingBox();
+  const client=await touch.context().newCDPSession(touch),x=tag.x+tag.width/2,y=tag.y+tag.height/2;
+  await client.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});
+  for(let n=1;n<=6;n++)await client.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x+n*28,y}]});
+  await client.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  assert.equal(await touch.locator('#app').getAttribute('data-class'),'3','emulated touch drag moves actual role across fulcrum');
+  const before=await touch.locator('#order').getAttribute('aria-label'),moved=await touch.locator('[data-tag="effort"]').boundingBox();
+  await client.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:moved.x+20,y:moved.y+20}]});
+  await client.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:30,y:moved.y+20}]});
+  await client.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});
+  assert.equal(await touch.locator('#order').getAttribute('aria-label'),before,'touch cancellation restores arrangement');
+  await touch.locator('[data-mode-choice="learn"]').tap();assert.equal(await touch.locator('#app').getAttribute('data-mode'),'learn');
+  await touch.screenshot({path:'artifacts/touch-learn.png'});await touch.close();
   assert.deepEqual(errors,[]);console.log('PASS: modes, guided steps, quiz concealment, correct/incorrect replies, first attempt vs retry, reset, Play restoration, responsive full-window canvas.');
 } finally {await browser?.close();server.kill();}

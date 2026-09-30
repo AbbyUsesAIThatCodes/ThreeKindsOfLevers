@@ -18,7 +18,7 @@ export const QUIZ = [
   {id:'limits',kind:'choice',title:'What Does This Model Show?',prompt:'What can you conclude from clicking Apply Effort?',state:PRESETS[1],options:['The exact effort force has been measured.','The class and motion relationship are demonstrated; real force and acceleration still need investigation.','A digital arrangement proves that a physical VEX assembly will work.'],answer:1,explanation:'This is an ideal controlled-motion demonstration, not a force measurement, acceleration calculation, or physical construction test.',goals:['G64','G68']},
 ];
 export function assess(question, response, state=question.state) {
-  if(question.kind==='choice') return response.choice!==''&&response.choice!==undefined&&Number(response.choice)===question.answer;
+  if(question.kind==='choice') return (question.id!=='motion'||(valid(state)&&leverClass(state)===3))&&response.choice!==''&&response.choice!==undefined&&Number(response.choice)===question.answer;
   if(question.kind==='build')return valid(state)&&leverClass(state)===question.target&&response.middle===order(state)[1];
   if(question.kind==='example')return Number(response.class)===question.example.class&&response.middle===LESSONS[question.example.class].middle&&Object.entries(question.example.roles).every(([role,location])=>response[role]===location);
   return valid(state) && Number(response.class)===leverClass(state) && response.middle===order(state)[1];

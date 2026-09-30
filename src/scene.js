@@ -131,6 +131,7 @@ export class LeverScene extends WorkshopScene {
   }
   screenSign() {return this.project(new THREE.Vector3(10,HEIGHT,0)).x>=this.project(new THREE.Vector3(-10,HEIGHT,0)).x?1:-1;}
   beginDrag(event,part) {
+    if(document.querySelector('#app')?.dataset.arrangementLocked==='true')return false;
     if(event.button!==0||!event.isPrimary||!this.state)return false;
     this.select(part);
     const a=this.project(new THREE.Vector3(-10,HEIGHT,0)),b=this.project(new THREE.Vector3(10,HEIGHT,0));

@@ -1,0 +1,5 @@
+{
+  "schema": 1,
+  "allocator": "Jess_PC serialized local review builds; fetch committed reservations before a new checkout builds the same scope",
+  "attempts": []
+}
