@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "allocator": "Jess_PC serialized local review builds; fetch committed reservations before a new checkout builds the same scope",
+  "attempts": [
+    {
+      "key": "local-integration/1",
+      "scope": "local-integration",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:08:46.791Z",
+      "fullId": "0.1.0_Unassigned_local-integration_build-001_20260930T030846Z_g10cfd138d29d_web-review",
+      "sourceRevision": "10cfd138d29dc81b2b7a668568db652b2a88cef1",
+      "completedAtUtc": "2026-09-30T03:08:46.917Z"
+    },
+    {
+      "key": "local-integration/2",
+      "scope": "local-integration",
+      "ordinal": 2,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:14:33.424Z",
+      "fullId": "0.1.0_Unassigned_local-integration_build-002_20260930T031433Z_g10cfd138d29d_dirty-21548e40_web-review",
+      "sourceRevision": "10cfd138d29dc81b2b7a668568db652b2a88cef1",
+      "completedAtUtc": "2026-09-30T03:14:33.553Z"
+    },
+    {
+      "key": "local-integration/3",
+      "scope": "local-integration",
+      "ordinal": 3,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:17:59.900Z",
+      "fullId": "0.1.0_Unassigned_local-integration_build-003_20260930T031759Z_g10cfd138d29d_dirty-023c979b_web-review",
+      "sourceRevision": "10cfd138d29dc81b2b7a668568db652b2a88cef1",
+      "completedAtUtc": "2026-09-30T03:18:00.070Z"
+    },
+    {
+      "key": "pr-6/1",
+      "scope": "pr-6",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:21:40.618Z",
+      "fullId": "0.1.0_Unassigned_pr-6_build-001_20260930T032140Z_gb6eb88dd4ecb_web-review",
+      "sourceRevision": "b6eb88dd4ecbf26f5d4be18993b5bec1e166e417",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-6_build-001_20260930T032140Z_gb6eb88dd4ecb_web-review",
+      "completedAtUtc": "2026-09-30T03:21:40.766Z"
+    },
+    {
+      "key": "pr-7/1",
+      "scope": "pr-7",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:21:41.957Z",
+      "fullId": "0.1.0_Unassigned_pr-7_build-001_20260930T032141Z_g5def06afa49c_web-review",
+      "sourceRevision": "5def06afa49cf355f635e82454c0f9e97fdb2c5e",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-7_build-001_20260930T032141Z_g5def06afa49c_web-review",
+      "completedAtUtc": "2026-09-30T03:21:42.108Z"
+    },
+    {
+      "key": "pr-8/1",
+      "scope": "pr-8",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:21:43.215Z",
+      "fullId": "0.1.0_Unassigned_pr-8_build-001_20260930T032143Z_g80fcf28ec099_web-review",
+      "sourceRevision": "80fcf28ec099a788cf29d335084594212c45cb34",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-8_build-001_20260930T032143Z_g80fcf28ec099_web-review",
+      "completedAtUtc": "2026-09-30T03:21:43.372Z"
+    },
+    {
+      "key": "pr-9/1",
+      "scope": "pr-9",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:21:45.080Z",
+      "fullId": "0.1.0_Unassigned_pr-9_build-001_20260930T032145Z_gd3d647fd204c_web-review",
+      "sourceRevision": "d3d647fd204cebd9ac94d652fbada434a08d7a90",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-9_build-001_20260930T032145Z_gd3d647fd204c_web-review",
+      "completedAtUtc": "2026-09-30T03:21:45.236Z"
+    },
+    {
+      "key": "pr-9/2",
+      "scope": "pr-9",
+      "ordinal": 2,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:49:16.541Z",
+      "fullId": "0.1.0_Unassigned_pr-9_build-002_20260930T034916Z_g5346e84b150c_web-review",
+      "sourceRevision": "5346e84b150cb2205d4556e9b31ba9a789e71e14",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-9_build-002_20260930T034916Z_g5346e84b150c_web-review",
+      "completedAtUtc": "2026-09-30T03:49:16.717Z"
+    },
+    {
+      "key": "pr-9/3",
+      "scope": "pr-9",
+      "ordinal": 3,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:53:21.823Z",
+      "fullId": "0.1.0_Unassigned_pr-9_build-003_20260930T035321Z_gc567ddf0612d_web-review",
+      "sourceRevision": "c567ddf0612dd25501144809031e0c4daf929753",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-9_build-003_20260930T035321Z_gc567ddf0612d_web-review",
+      "completedAtUtc": "2026-09-30T03:53:21.983Z"
+    }
+  ]
+}

@@ -105,6 +105,11 @@ export class LeverScene extends WorkshopScene {
   }
   draw() {
     if(!this.moving)return;
+    // Keep the apparatus above the scrollable activity on a short phone screen.
+    // Projection offset changes framing only; canvas dimensions and mechanics stay fixed.
+    const w=this.host.clientWidth,h=this.host.clientHeight;
+    if(w<=600&&h<=650&&document.querySelector('#app')?.dataset.mode!=='play')this.camera.setViewOffset(w,h,0,60,w,h);
+    else if(this.camera.view?.enabled)this.camera.clearViewOffset();
     this.scene.fog.near=260;this.scene.fog.far=850;
     // Hide only walls lying between an outside orbiting camera and the activity.
     if(this.room){const p=this.room.root.worldToLocal(this.camera.position.clone());this.room.groups.LeftWall.visible=p.x>-3.45;this.room.groups.RightWall.visible=p.x<3.45;this.room.groups.BackWall.visible=p.z<6.9;this.room.groups.FrontWall.visible=p.z>-6.9;}
@@ -131,6 +136,7 @@ export class LeverScene extends WorkshopScene {
   }
   screenSign() {return this.project(new THREE.Vector3(10,HEIGHT,0)).x>=this.project(new THREE.Vector3(-10,HEIGHT,0)).x?1:-1;}
   beginDrag(event,part) {
+    if(document.querySelector('#app')?.dataset.arrangementLocked==='true')return false;
     if(event.button!==0||!event.isPrimary||!this.state)return false;
     this.select(part);
     const a=this.project(new THREE.Vector3(-10,HEIGHT,0)),b=this.project(new THREE.Vector3(10,HEIGHT,0));

@@ -21,6 +21,7 @@ test('feedback retry never overwrites first response evidence',()=>{
 });
 test('motion and model-limit items reject force measurement and mastery claims',()=>{
   for(const q of QUIZ.filter(q=>q.kind==='choice'))for(let i=0;i<q.options.length;i++)assert.equal(assess(q,{choice:i}),i===q.answer);
+  assert.equal(assess(QUIZ.find(q=>q.id==='motion'),{choice:0},{effort:0,fulcrum:75,load:225}),false);
 });
 test('construction checks inspect actual positions and reject a preset claim',()=>{
   for(const q of QUIZ.filter(q=>q.kind==='build')){

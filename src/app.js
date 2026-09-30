@@ -18,10 +18,10 @@ function renderSelection(){
   $('#position').value=(state[selected]+250)/25;
   $('#position').setAttribute('aria-valuetext',`${cap(selected)} at position ${(state[selected]+250)/25+1} of 21`);
   const sign=ready?scene.screenSign():1;
-  $('#move-left').disabled=step(state,selected,-sign)[selected]===state[selected];
-  $('#move-right').disabled=step(state,selected,sign)[selected]===state[selected];
+  $('#move-left').disabled=$('#app').dataset.arrangementLocked==='true'||step(state,selected,-sign)[selected]===state[selected];
+  $('#move-right').disabled=$('#app').dataset.arrangementLocked==='true'||step(state,selected,sign)[selected]===state[selected];
 }
-function setState(next){state={...next};lifted=false;if(ready)scene.setState(state);render();save();document.dispatchEvent(new Event('arrangement-change'));}
+function setState(next){if($('#app').dataset.arrangementLocked==='true')return;state={...next};lifted=false;if(ready)scene.setState(state);render();save();document.dispatchEvent(new Event('arrangement-change'));}
 function setLifted(value){lifted=value;if(ready)scene.setLifted(value);renderMotion();if(fallback)drawFallback();}
 function renderMotion(){
   const direction=measures(state).effortDirection===1?'up':'down';
