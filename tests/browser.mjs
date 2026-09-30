@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import { mkdir } from 'node:fs/promises';
 import assert from 'node:assert/strict';
-const port=Number(process.env.PORT||4178), origin=`http://127.0.0.1:${port}`,url=origin+'/ThreeKindsOfLevers/';
+const port=Number(process.env.PORT||43160), origin=`http://127.0.0.1:${port}`,url=origin+'/ThreeKindsOfLevers/';
 const server=spawn(process.execPath,['scripts/serve.mjs'],{stdio:'ignore',env:{...process.env,PORT:String(port)}});
 for(let i=0;i<60;i++){try{const r=await fetch(url);if(r.ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}
 const args=['--no-sandbox'];if(process.env.BROWSER_SOFTWARE_GL==='1')args.push('--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader');

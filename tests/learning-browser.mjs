@@ -4,7 +4,7 @@ import { mkdir } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { QUIZ, GUIDES } from '../src/learning.js';
 import { leverClass, order } from '../src/model.js';
-const port=4182, origin=`http://127.0.0.1:${port}`;
+const port=43161, origin=`http://127.0.0.1:${port}`;
 const server=spawn(process.execPath,['scripts/serve.mjs'],{stdio:'ignore',env:{...process.env,PORT:String(port)}});
 let browser;
 try {
@@ -22,6 +22,9 @@ try {
   assert.equal(await page.evaluate(()=>document.activeElement.tagName),'H2');
   await page.keyboard.press('Shift+Tab');await page.keyboard.press('ArrowDown');
   assert.equal(await page.evaluate(()=>document.activeElement.id),'guide-picker');
+  await page.locator('#previous-guide').focus();await page.keyboard.press('Enter');
+  assert.match(await page.locator('#activity h2').innerText(),/Meet a First Class/);
+  assert.equal(await page.evaluate(()=>document.activeElement.tagName),'H2');
   await page.locator('#guide-picker').selectOption('4');
   await page.locator('[data-tag="fulcrum"]').focus();
   for(let n=0;n<20&&await page.locator('#app').getAttribute('data-class')!=='1';n++)await page.keyboard.press('ArrowRight');
@@ -94,6 +97,12 @@ try {
       await page.locator(`[data-mode-choice="${mode}"]`).click();
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width);
       const canvas=await page.locator('canvas').boundingBox();assert.equal(canvas.width,width);assert.equal(canvas.height,height);
+      await page.waitForTimeout(80);
+      const lesson=await page.locator('#lesson').boundingBox();
+      for(const tag of await page.locator('.part-tag').all()){
+        const box=await tag.boundingBox();assert.ok(box.y+box.height<lesson.y,`${mode} ${width}x${height}: role label clears activity`);
+      }
+      if(width===320)for(const marker of await page.locator('#leaders circle').all())assert.ok(Number(await marker.getAttribute('cy'))+20<lesson.y,`${mode}: apparatus clears the short-screen activity`);
       await page.screenshot({path:`artifacts/${mode}-${width}x${height}.png`});
     }
   }

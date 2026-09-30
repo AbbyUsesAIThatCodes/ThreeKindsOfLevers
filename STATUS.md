@@ -25,6 +25,8 @@ Original classroom photos `1000008853.jpg`, `1000008855.jpg`, `1000008854.jpg`, 
 
 ## Restart
 
+Integration implementation saved at `10cfd138d29dc81b2b7a668568db652b2a88cef1`; build identity, local launcher, and bounded feedback/motion/focus fixes are complete. Local build 003 passes the expanded learning suite including short-screen visibility. Thirteen logic tests pass. See checkpoint 04; next is the final draft and exact per-PR packages. No production action has occurred.
+
 Completed: PR #7 at `5def06afa49cf355f635e82454c0f9e97fdb2c5e`; classroom integration on `overnight/classroom` passes 12 logic tests and all three browser suites. Review checkpoint 03 for visual limitations and final QA work.
 
 Completed: PR #6 (`b6eb88dd4ecbf26f5d4be18993b5bec1e166e417`), nine logic tests and both browser suites. Construction/example branch passes 11 logic tests and the expanded 17-item learning/browser suite. See `docs/checkpoints/02-CONSTRUCTION-EXAMPLES.md`.

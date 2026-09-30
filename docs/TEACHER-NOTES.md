@@ -1,6 +1,10 @@
-# Three Kinds of Levers — teacher notes
+# Three Kinds of Levers - Teacher Notes
 
-## The instructional target
+## The Instructional Target
+
+Use [Curriculum Coverage](CURRICULUM-COVERAGE.md) for the approved EES 2.2.1 R01 source register, direct/inferred distinctions and gaps. Its Gxx labels are local audit targets, not official standards. Digital arrangement building rehearses design and does not establish physical construction mastery.
+
+**Play** preserves free exploration. **Learn** guides role recognition, three actual constructions and six pictured operating configurations. **Quiz** requires the class and middle role, actual construction, and three located roles in examples. Initial answers are recorded separately from corrected retries. Editing a response clears its visible feedback; it never changes the original first-attempt record. The fixed motion question locks arrangement editing while leaving Apply Effort available.
 
 Students identify **Effort**, **Fulcrum**, and **Load** and classify a lever by
 which role lies between the other two. Start with the presets, apply effort,
@@ -34,7 +38,7 @@ apparatus always demonstrates raising a downward load.
 - Background drag or Orbit rotates the camera. Side view and Fit view restore
   useful perspectives. The canvas keeps its size when overlays open.
 
-## Modeling boundaries
+## Modeling Boundaries
 
 The beam is ideal and massless; the supports, collars, and effort handle have
 no modeled weight. The axle has no friction. A single gold weight supplies the
@@ -53,7 +57,7 @@ operation, not part of the mechanical motion. The hanging weight and effort
 handle stay vertical; force arrows remain vertical under rotation. This is
 not a calibrated VEX build or physical validation of classroom hardware.
 
-## Accessibility and resilience
+## Accessibility and Resilience
 
 Labels and guide lines preserve role identity during camera orbit. Color is
 paired with text. Presets, motion, and position controls work with the keyboard.
@@ -70,7 +74,7 @@ site load. No students, curriculum packets, or classroom records are included.
 and effort/load torque direction and movement for every legal arrangement.
 `npm run test:browser` exercises the rendered game, camera, controls, mobile
 layout, persistence, reduced motion, and WebGL/storage fallback. It saves
-screenshots to `artifacts/`; GitHub Actions attaches those to the check run.
+screenshots to `artifacts/`. The additional learning and classroom suites cover actual construction, example roles, stale-feedback regressions, locked motion, keyboard progression, touch emulation and room details. Draft PRs skip the Actions job; exact local package evidence is recorded in the current review.
 
 Browser verification is separate from physical verification. This prototype
 still benefits from the teacher's classroom review before student use.

@@ -1,5 +1,36 @@
 {
   "schema": 1,
   "allocator": "Jess_PC serialized local review builds; fetch committed reservations before a new checkout builds the same scope",
-  "attempts": []
+  "attempts": [
+    {
+      "key": "local-integration/1",
+      "scope": "local-integration",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:08:46.791Z",
+      "fullId": "0.1.0_Unassigned_local-integration_build-001_20260930T030846Z_g10cfd138d29d_web-review",
+      "sourceRevision": "10cfd138d29dc81b2b7a668568db652b2a88cef1",
+      "completedAtUtc": "2026-09-30T03:08:46.917Z"
+    },
+    {
+      "key": "local-integration/2",
+      "scope": "local-integration",
+      "ordinal": 2,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:14:33.424Z",
+      "fullId": "0.1.0_Unassigned_local-integration_build-002_20260930T031433Z_g10cfd138d29d_dirty-21548e40_web-review",
+      "sourceRevision": "10cfd138d29dc81b2b7a668568db652b2a88cef1",
+      "completedAtUtc": "2026-09-30T03:14:33.553Z"
+    },
+    {
+      "key": "local-integration/3",
+      "scope": "local-integration",
+      "ordinal": 3,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:17:59.900Z",
+      "fullId": "0.1.0_Unassigned_local-integration_build-003_20260930T031759Z_g10cfd138d29d_dirty-023c979b_web-review",
+      "sourceRevision": "10cfd138d29dc81b2b7a668568db652b2a88cef1",
+      "completedAtUtc": "2026-09-30T03:18:00.070Z"
+    }
+  ]
 }
