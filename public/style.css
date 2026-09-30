@@ -21,7 +21,7 @@ dialog{border:1px solid #98aa8d;border-radius:23px;padding:28px 32px;max-width:6
 .vocab{font-size:inherit;border:0;border-bottom:1px dotted currentColor;border-radius:0;padding:1px 2px;background:transparent;font-weight:bold;color:inherit}
 #vocabulary-tooltip{position:fixed;z-index:50;background:#163b39;color:#fffcef;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.35;box-shadow:0 4px 20px #0003;pointer-events:none}
 .reference-source{font-size:13px;color:#566b60}
-@media(max-width:360px){.part-tag{min-width:90px;max-width:96px;font-size:14px;padding:4px 5px}.part-tag small{font-size:10px}.mode-choices{gap:4px;margin-left:8px;margin-right:8px}.mode-choices button{min-width:55px;padding:5px 8px;font-size:12px}}
+@media(max-width:360px){.part-tag{min-width:90px;max-width:96px;font-size:14px;padding:4px 5px}.part-tag small{font-size:10px;white-space:normal;overflow-wrap:anywhere;line-height:1.2}.mode-choices{gap:4px;margin-left:8px;margin-right:8px}.mode-choices button{min-width:55px;padding:5px 8px;font-size:12px}}
 .mode-choices{display:flex;justify-content:center;gap:6px;margin:0 12px 8px}.mode-choices button{min-width:76px;padding:6px 14px}
 #app:not([data-mode=play]) .class-choices,#app:not([data-mode=play]) #reset-play{display:none}
 #app[data-mode=quiz] .class-summary,#app[data-mode=quiz] .example{display:none}

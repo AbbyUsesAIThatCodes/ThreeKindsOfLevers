@@ -120,6 +120,43 @@ try {
   await client.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});
   assert.equal(await touch.locator('#order').getAttribute('aria-label'),before,'touch cancellation restores arrangement');
   await touch.locator('[data-mode-choice="learn"]').tap();assert.equal(await touch.locator('#app').getAttribute('data-mode'),'learn');
-  await touch.screenshot({path:'artifacts/touch-learn.png'});await touch.close();
+  await touch.screenshot({path:'artifacts/touch-learn.png'});
+  await touch.setViewportSize({width:320,height:568});
+  await touch.locator('[data-mode-choice="quiz"]').tap();
+  await touch.waitForTimeout(100);
+  const loadSubtitle=await touch.locator('[data-tag="load"] small').evaluate(el=>{
+    const card=el.closest('button').getBoundingClientRect(),range=document.createRange();range.selectNodeContents(el);
+    return {text:el.textContent,card:{left:card.left,right:card.right,bottom:card.bottom},lines:[...range.getClientRects()].map(r=>({left:r.left,right:r.right,bottom:r.bottom}))};
+  });
+  assert.equal(loadSubtitle.text,'The object to move');
+  assert.ok(loadSubtitle.lines.length>1,'narrow Load subtitle wraps without hiding its text');
+  for(const line of loadSubtitle.lines){assert.ok(line.left>=loadSubtitle.card.left&&line.right<=loadSubtitle.card.right,'subtitle text stays inside its card');assert.ok(line.bottom<=loadSubtitle.card.bottom,'wrapped subtitle stays below its role label and inside card');}
+  const panel=touch.locator('#activity'),quizOrder=await touch.locator('#order').getAttribute('aria-label');
+  assert.ok(await panel.evaluate(el=>el.scrollHeight>el.clientHeight),'small Quiz panel actually overflows');
+  async function swipePanel(up){
+    const box=await panel.boundingBox(),x=box.x+12,start=up?box.y+box.height-12:box.y+12,end=up?box.y+12:box.y+box.height-12;
+    await client.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y:start}]});
+    for(let n=1;n<=8;n++){await client.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:start+(end-start)*n/8}]});await touch.waitForTimeout(25);}
+    await touch.waitForTimeout(80);await client.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await touch.waitForTimeout(120);
+  }
+  async function revealBySwipe(locator){
+    for(let n=0;n<8;n++){const box=await locator.boundingBox(),clip=await panel.boundingBox();if(box.y>=clip.y+2&&box.y+box.height<=clip.y+clip.height-2)return;await swipePanel(box.y+box.height>clip.y+clip.height-2);}
+    assert.fail('Touch swipes did not reveal the requested Quiz control.');
+  }
+  await swipePanel(true);
+  assert.ok(await panel.evaluate(el=>el.scrollTop)>20,'a touch swipe scrolls the Quiz panel');
+  const classSelect=touch.locator('#quiz-form select[name="class"]'),middleSelect=touch.locator('#quiz-form select[name="middle"]');
+  await revealBySwipe(classSelect);await classSelect.selectOption('1');
+  await revealBySwipe(middleSelect);await middleSelect.selectOption('fulcrum');
+  const submit=touch.locator('#quiz-form button');await revealBySwipe(submit);
+  await touch.screenshot({path:'artifacts/phone-quiz-controls.png'});await submit.tap();
+  assert.match(await touch.locator('#quiz-feedback').innerText(),/^Correct/);
+  await revealBySwipe(touch.locator('#quiz-feedback'));await touch.screenshot({path:'artifacts/phone-quiz-submitted.png'});
+  for(let n=0;n<8&&await panel.evaluate(el=>el.scrollTop)>1;n++)await swipePanel(false);
+  assert.ok(await panel.evaluate(el=>el.scrollTop)<=1,'downward swipes return to the question top');
+  assert.equal(await touch.evaluate(()=>window.scrollY),0,'the full-window page does not scroll');
+  assert.equal(await touch.locator('#order').getAttribute('aria-label'),quizOrder,'panel swipes do not drag the lever');
+  assert.match(await touch.locator('#activity h2').innerText(),/Read the Arrangement/);
+  await touch.screenshot({path:'artifacts/phone-quiz-returned-top.png'});await touch.close();
   assert.deepEqual(errors,[]);console.log('PASS: modes, guided steps, quiz concealment, correct/incorrect replies, first attempt vs retry, reset, Play restoration, responsive full-window canvas.');
 } finally {await browser?.close();server.kill();}
