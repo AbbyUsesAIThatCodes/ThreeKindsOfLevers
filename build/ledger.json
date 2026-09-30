@@ -31,6 +31,50 @@
       "fullId": "0.1.0_Unassigned_local-integration_build-003_20260930T031759Z_g10cfd138d29d_dirty-023c979b_web-review",
       "sourceRevision": "10cfd138d29dc81b2b7a668568db652b2a88cef1",
       "completedAtUtc": "2026-09-30T03:18:00.070Z"
+    },
+    {
+      "key": "pr-6/1",
+      "scope": "pr-6",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:21:40.618Z",
+      "fullId": "0.1.0_Unassigned_pr-6_build-001_20260930T032140Z_gb6eb88dd4ecb_web-review",
+      "sourceRevision": "b6eb88dd4ecbf26f5d4be18993b5bec1e166e417",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-6_build-001_20260930T032140Z_gb6eb88dd4ecb_web-review",
+      "completedAtUtc": "2026-09-30T03:21:40.766Z"
+    },
+    {
+      "key": "pr-7/1",
+      "scope": "pr-7",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:21:41.957Z",
+      "fullId": "0.1.0_Unassigned_pr-7_build-001_20260930T032141Z_g5def06afa49c_web-review",
+      "sourceRevision": "5def06afa49cf355f635e82454c0f9e97fdb2c5e",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-7_build-001_20260930T032141Z_g5def06afa49c_web-review",
+      "completedAtUtc": "2026-09-30T03:21:42.108Z"
+    },
+    {
+      "key": "pr-8/1",
+      "scope": "pr-8",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:21:43.215Z",
+      "fullId": "0.1.0_Unassigned_pr-8_build-001_20260930T032143Z_g80fcf28ec099_web-review",
+      "sourceRevision": "80fcf28ec099a788cf29d335084594212c45cb34",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-8_build-001_20260930T032143Z_g80fcf28ec099_web-review",
+      "completedAtUtc": "2026-09-30T03:21:43.372Z"
+    },
+    {
+      "key": "pr-9/1",
+      "scope": "pr-9",
+      "ordinal": 1,
+      "status": "success",
+      "reservedAtUtc": "2026-09-30T03:21:45.080Z",
+      "fullId": "0.1.0_Unassigned_pr-9_build-001_20260930T032145Z_gd3d647fd204c_web-review",
+      "sourceRevision": "d3d647fd204cebd9ac94d652fbada434a08d7a90",
+      "outputDirectory": "review-packages\\0.1.0_Unassigned_pr-9_build-001_20260930T032145Z_gd3d647fd204c_web-review",
+      "completedAtUtc": "2026-09-30T03:21:45.236Z"
     }
   ]
 }
