@@ -36,7 +36,7 @@ try{
   assert.equal(await page.locator('#top #apply').count(),1,'simulation control moved into banner');
   assert.equal(await page.locator('#lesson button#apply').count(),0);
   const manifest=await (await fetch(origin+'/build-manifest.json')).json();
-  for(const [width,height] of [[1366,768],[1024,768],[768,1024],[390,844],[320,568],[844,390]]){
+  for(const [width,height] of [[320,568],[1366,768],[1024,768],[768,1024],[390,844],[844,390]]){
     await page.setViewportSize({width,height});
     for(const cls of [1,2,3]){
       await page.locator(`[data-preset="${cls}"]`).click();
