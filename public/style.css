@@ -41,3 +41,51 @@ dialog{border:1px solid #98aa8d;border-radius:23px;padding:28px 32px;max-width:6
   #order{font-size:11px;margin-top:5px}.order-part{padding:2px 5px}.try-motion button{font-size:12px;padding:6px}.try-motion #motion-note{font-size:11px}#lesson .model-note{display:none}
   #activity{max-height:24vh;scrollbar-gutter:stable}#activity h2{font-size:18px}#activity p{font-size:12px}
 }
+/* Three compact, distinct banner groups leave the apparatus its own clear area. */
+.banner-controls{display:grid;grid-template-columns:1.05fr 1.15fr .9fr;gap:12px;max-width:1250px;margin:0 auto;padding:0 20px}
+.banner-controls>nav{border:1px solid #8b9e8277;border-radius:13px;background:#fffdf1eb;padding:7px;margin:0;min-width:0}
+.banner-controls .mode-choices{position:static;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;background:#e5efe2f5}
+.banner-controls .mode-choices button{min-width:0;grid-column:span 2;padding:5px 7px;font-size:14px}
+.banner-controls #apply{grid-column:span 4}
+.banner-controls .class-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;background:#fff4dff5}
+.banner-controls .class-choices button{display:block;min-width:0;max-width:none;text-align:center;font-size:15px;padding:5px}
+.banner-controls .class-choices button>span{display:none}
+.banner-controls .class-choices small{display:block;font-size:12px;line-height:1.2;margin-top:3px}
+.banner-controls .camera-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;background:#e6ecf3f5}
+.banner-controls .camera-controls button{font-size:14px;padding:5px 7px}
+#app:not([data-mode=play]) .banner-controls{grid-template-columns:1.05fr .9fr;max-width:900px}
+#app:not([data-mode=play]) .banner-controls .class-choices{display:none}
+#app:not([data-mode=play]) .banner-controls #apply{grid-column:span 6}
+header{padding:9px 24px;max-width:1340px;margin:auto}.brand b{display:inline}.brand small{margin-top:1px}.brand>span{width:34px;height:34px;font-size:26px}
+#top{padding-bottom:8px}
+.try-motion .view-tools{display:block;margin:0}.try-motion .view-tools p{font-size:14px;margin:0}
+.try-motion .vocab{width:auto;padding:1px 2px;font-size:inherit}
+.try-motion #motion-note{min-height:0;font-size:14px}.try-motion #motion-note br{display:none}.try-motion #motion-note br:after{content:' '}
+#lesson{padding:12px 18px;gap:18px}#lesson>section+section{padding-left:18px}
+@media(max-width:1050px){
+  .banner-controls{gap:7px;padding:0 12px}.banner-controls>nav{padding:5px}
+  .banner-controls .mode-choices button,.banner-controls .camera-controls button{font-size:12px;padding:5px 3px}
+  .banner-controls .class-choices button{font-size:13px}.banner-controls .class-choices small{font-size:11px}
+}
+@media(max-width:600px){
+  header{padding:7px 10px}.brand b{display:block}
+  .banner-controls,#app:not([data-mode=play]) .banner-controls{grid-template-columns:1fr;gap:4px;padding:0 8px}
+  .banner-controls>nav{padding:4px;border-radius:10px}
+  .banner-controls .mode-choices{grid-template-columns:.7fr .8fr .7fr .8fr 1.6fr;gap:3px}
+  .banner-controls .mode-choices button,.banner-controls #apply{grid-column:auto;font-size:12px;padding:5px 2px}
+  #app:not([data-mode=play]) .banner-controls .mode-choices{grid-template-columns:.8fr .8fr .8fr 1.6fr}
+  #app:not([data-mode=play]) .banner-controls #apply{grid-column:auto}
+  .banner-controls .class-choices button{font-size:13px;padding:4px 2px}.banner-controls .class-choices small{font-size:10px}
+  .banner-controls .camera-controls{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+  .banner-controls .camera-controls button{font-size:12px;padding:5px 2px;white-space:nowrap}
+  #lesson{padding:9px 12px;gap:5px}#lesson>section+section{padding:5px 0 0}
+  .try-motion{display:block}.try-motion .view-tools{display:inline-block}.try-motion .view-tools p{font-size:12px}
+  .try-motion #motion-note{display:inline;font-size:12px;margin:0 0 0 6px}.try-motion .model-note{text-align:left}
+  #app:not([data-mode=play]) .try-motion{padding-top:4px}
+}
+@media(max-height:600px) and (min-width:601px){
+  header{padding:4px 14px}.banner-controls{max-width:none;padding:0 12px}.banner-controls>nav{padding:4px}
+  #top{padding-bottom:4px}#lesson{padding:8px 14px;gap:10px}
+  .try-motion .view-tools p{display:block;font-size:12px}.try-motion #motion-note{font-size:12px}
+  #app:not([data-mode=play]) .banner-controls{max-width:740px}
+}
