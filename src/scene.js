@@ -126,7 +126,7 @@ export class LeverScene extends WorkshopScene {
     const tags=[...document.querySelectorAll('.part-tag')];
     const top=(document.querySelector('#top')?.getBoundingClientRect().bottom||0)+Math.max(0,...tags.map(t=>t.offsetHeight))+18;
     const bottom=(document.querySelector('#lesson')?.getBoundingClientRect().top||h)-12;
-    const usableHeight=Math.max(45,bottom-top),usableWidth=w-36;
+    const usableHeight=Math.max(1,bottom-top),usableWidth=w-36;
     // Reserve the full controlled lift as well as the level beam, so Apply Effort
     // never moves the apparatus under a panel. This changes only camera framing.
     const angle=this.moving.rotation.z,box=new THREE.Box3().setFromObject(this.base);

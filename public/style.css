@@ -99,3 +99,15 @@ header{padding:9px 24px;max-width:1340px;margin:auto}.brand b{display:inline}.br
   .try-motion .view-tools{display:block}.try-motion .view-tools p{font-size:11px}
   .try-motion #motion-note{display:block;font-size:11px;margin:2px 0 0}
 }
+@media(max-height:500px) and (min-width:601px){
+  .banner-controls .mode-choices{grid-template-columns:.7fr .8fr .7fr .8fr 1.7fr;gap:3px}
+  .banner-controls .mode-choices button,.banner-controls #apply{grid-column:auto;font-size:11px;padding:5px 2px;white-space:nowrap}
+  #app:not([data-mode=play]) .banner-controls .mode-choices{grid-template-columns:.8fr .8fr .8fr 1.6fr}
+  #app:not([data-mode=play]) .banner-controls #apply{grid-column:auto}
+  .banner-controls .class-choices button{font-size:12px;padding:5px 2px}
+  .banner-controls .class-choices small{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .banner-controls .camera-controls{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+  .banner-controls .camera-controls button{font-size:11px;padding:5px 2px;white-space:nowrap}
+  .part-tag{min-width:100px;font-size:14px;line-height:1.15;padding:3px 6px}.part-tag small{font-size:10px;line-height:1.15}
+  #activity{max-height:30vh}
+}
