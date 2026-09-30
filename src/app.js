@@ -89,6 +89,7 @@ for(const [id,d] of [['move-left',-1],['move-right',1]])$(`#${id}`).addEventList
 function showPositions(value){$('#position-panel').hidden=!value;$('#arrange').setAttribute('aria-expanded',String(value));}
 $('#arrange').addEventListener('click',()=>showPositions($('#position-panel').hidden));$('#close-positions').addEventListener('click',()=>{showPositions(false);$('#arrange').focus();});
 $('#side').addEventListener('click',()=>scene?.sideCamera());$('#fit').addEventListener('click',()=>scene?.resetCamera());$('#orbit').addEventListener('click',()=>scene?.turn());
+$('#room-view').addEventListener('click',()=>scene?.roomCamera());
 $('#help').addEventListener('click',()=>{$('#help-dialog').showModal();});for(const b of $$('.dialog-close'))b.addEventListener('click',()=>$('#help-dialog').close());
 $('#reduced').checked=reduced;$('#reduced').addEventListener('change',e=>{reduced=e.target.checked;if(scene){scene.reduced=reduced;scene.dirty=true;}save();});
 $('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{notice('Full screen is unavailable in this browser.');}});if(!document.fullscreenEnabled)$('#fullscreen').hidden=true;
