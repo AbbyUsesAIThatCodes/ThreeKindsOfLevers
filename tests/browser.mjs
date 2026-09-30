@@ -60,7 +60,7 @@ try{
   const drag=await page.locator('[data-tag="effort"]').boundingBox();await page.mouse.move(drag.x+drag.width/2,drag.y+drag.height/2);await page.mouse.down();await page.mouse.move(drag.x+drag.width/2+270,drag.y+drag.height/2,{steps:5});await page.keyboard.press('Escape');await page.mouse.up();
   assert.equal(await page.locator('#order').getAttribute('aria-label'),originalOrder,'Escape restores drag start');
   await page.locator('[data-preset="2"]').click();await page.locator('#orbit').click();await page.locator('#orbit').click();await layout();await page.screenshot({path:'artifacts/rear-view.png'});
-  await page.locator('#help').click();await page.locator('#reduced').check();await page.getByRole('button',{name:'Back to the workbench'}).click();
+  await page.locator('#help').click();await page.locator('#reduced').check();await page.getByRole('button',{name:'Back to the Workbench'}).click();
   await page.locator('#apply').click();assert.equal(await page.locator('#app').getAttribute('data-lifted'),'true');
   await page.reload();await page.waitForFunction(()=>document.querySelector('#app').dataset.ready==='true');assert.equal(await cls(),2,'saved arrangement persists');
   for(const [width,height] of [[1024,768],[1366,768],[390,844],[844,390]]){
