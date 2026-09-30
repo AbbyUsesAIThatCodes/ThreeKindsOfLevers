@@ -1,17 +1,24 @@
 import * as THREE from 'three';
 import { WorkshopScene } from './workshop.js';
+import { createClassroom } from './classroom/classroom.js';
 import { ROLES, move, step, measures } from './model.js';
 const HEIGHT=7, SCALE=25;
 export const COLORS={effort:0x257e73,fulcrum:0x7952a0,load:0xbf8630};
 
 export class LeverScene extends WorkshopScene {
   makeRoom() {
-    super.makeRoom();
-    // Same classroom backdrop as the latest Mechanical Advantage workbench.
-    const wall=this.box(110,48,.4,0xd8dfd0,0,18,-32);
-    wall.castShadow=false;wall.receiveShadow=false;
-    this.classroom=[wall,this.box(30,12,.45,0x847453,1,15,-31.6),
-      this.box(28.8,10.8,.16,0x355850,1,15,-31.3),this.box(31,.35,1.2,0xae9a76,1,8.9,-30.9)];
+    const room=createClassroom();this.room=room;
+    // Classroom is in metres; apparatus geometry uses 25 mm per scene unit.
+    // Conversion changes visual placement only; model.js remains millimetres.
+    room.root.scale.setScalar(40);room.root.position.set(-1.05*40,-.9325*40,0);
+    room.groups.Ceiling.visible=false; // Cutaway supports an orbiting teaching camera.
+    room.root.traverse(o=>{if(o.isMesh)o.castShadow=false;});
+    this.scene.add(room.root);this.camera.far=1000;this.camera.updateProjectionMatrix();
+    this.scene.background.set(0xe8e3d2);
+    const desks=room.groups.Furniture.children.filter(o=>o.name.startsWith('Desk_Pair_'));
+    this.host.dataset.classroom='photo-informed';this.host.dataset.desks=String(desks.length);
+    this.host.dataset.deskPairs=String(new Set(desks.map(o=>o.name.split('_')[2])).size);this.host.dataset.pushBar=String(!!room.root.getObjectByName('ExitPushBar'));
+    this.host.dataset.extinguisher=String(!!room.root.getObjectByName('FireExtinguisher'));
   }
   mesh(parent,geometry,color,xyz,owner) {
     const material=new THREE.MeshStandardMaterial({color,metalness:.45,roughness:.4});
@@ -98,20 +105,26 @@ export class LeverScene extends WorkshopScene {
   }
   draw() {
     if(!this.moving)return;
-    this.scene.fog.near=Math.max(65,this.camera.position.distanceTo(this.controls.target)+35);this.scene.fog.far=this.scene.fog.near+80;
-    for(const o of this.classroom||[])o.visible=this.camera.position.z>-28;
+    this.scene.fog.near=260;this.scene.fog.far=850;
+    // Hide only walls lying between an outside orbiting camera and the activity.
+    if(this.room){const p=this.room.root.worldToLocal(this.camera.position.clone());this.room.groups.LeftWall.visible=p.x>-3.45;this.room.groups.RightWall.visible=p.x<3.45;this.room.groups.BackWall.visible=p.z<6.9;this.room.groups.FrontWall.visible=p.z>-6.9;}
     this.moving.rotation.z=this.motion.angle;
     for(const group of [...Object.values(this.attachments||{}),...Object.values(this.arrows||{})])group.rotation.z=-this.motion.angle;
     this.scene.updateMatrixWorld(true);this.renderer.render(this.scene,this.camera);this.dirty=false;
     this.callbacks.onFrame?.({positions:this.screenPositions(),angle:this.motion.angle});
   }
   resetCamera() {
+    this.camera.fov=35;this.camera.updateProjectionMatrix();
     const short=this.host.clientHeight<=500,center=short?7:8;
     const fit=Math.max(1,1.45/(this.host.clientWidth/this.host.clientHeight))*(short?1.3:1);
     this.controls.target.set(0,center,0);this.camera.position.set(10*fit,center+14*fit,47*fit);
     this.controls.maxDistance=Math.max(75,60*fit);this.controls.update();this.draw();
   }
+  roomCamera() {
+    this.camera.fov=50;this.camera.updateProjectionMatrix();this.camera.position.set(-22,67,252);this.controls.target.set(-22,3,-28);this.controls.maxDistance=450;this.controls.update();this.draw();
+  }
   sideCamera() {
+    this.camera.fov=35;this.camera.updateProjectionMatrix();
     const short=this.host.clientHeight<=500,center=short?7:8;
     const fit=Math.max(1,1.45/(this.host.clientWidth/this.host.clientHeight))*(short?1.3:1);
     this.controls.target.set(0,center,0);this.camera.position.set(0,center+.1,49*fit);this.controls.update();this.draw();
