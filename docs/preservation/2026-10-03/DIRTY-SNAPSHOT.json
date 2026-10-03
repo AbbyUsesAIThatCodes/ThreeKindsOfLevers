@@ -1,0 +1,14 @@
+{
+  "repository": "ThreeKindsOfLevers",
+  "base": "2d56d8185148d09eaad1d92d1e06e56b44090755",
+  "sourceWorkspace": "2026-09-29/task-2/ThreeKindsOfLevers",
+  "branch": "preserve/jess-build-ledger-2026-10-03",
+  "files": [
+    {
+      "path": "build/ledger.json",
+      "bytes": 6496,
+      "sha256": "c643e056f90b6d5255f1b42be8953a8da53f166eff3a16baf40d497dfafb324b"
+    }
+  ],
+  "purpose": "Exact original dirty/staged snapshot; not a merge-ready change or new build. Original workspace untouched. No deletion candidates copied."
+}
