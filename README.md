@@ -1,5 +1,7 @@
 # Three Kinds of Levers
 
+**[Play ThreeKindsOfLevers Online](https://abbyusesaithatcodes.github.io/ThreeKindsOfLevers/)**
+
 Explore, construct and classify levers in a cartoon version of the classroom.
 
 - **Play:** freely move Effort, Fulcrum and Load, try each class, mirror the arrangement and apply effort.
